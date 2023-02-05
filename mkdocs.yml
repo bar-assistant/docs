@@ -1,0 +1,7 @@
+site_name: Bar Assistant Documentation
+repo_url: https://github.com/karlomikus/bar-assistant
+theme:
+  name: material
+  palette:
+    accent: pink
+    primary: indigo
