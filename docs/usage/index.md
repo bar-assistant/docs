@@ -1,1 +1,1 @@
-# Managing ingredients
+# Ingredients

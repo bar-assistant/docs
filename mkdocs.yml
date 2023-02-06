@@ -1,7 +1,18 @@
 site_name: Bar Assistant Documentation
 repo_url: https://github.com/karlomikus/bar-assistant
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
 theme:
   name: material
+  logo: assets/logo.svg
+  features:
+    - content.code.annotate
   palette:
     accent: pink
     primary: indigo
