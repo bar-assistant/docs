@@ -11,8 +11,23 @@ markdown_extensions:
 theme:
   name: material
   logo: assets/logo.svg
+  favicon: assets/favicon.png
   features:
     - content.code.annotate
+    - navigation.tabs
   palette:
-    accent: pink
-    primary: indigo
+    # Palette toggle for light mode
+    - scheme: indigo
+      accent: pink
+      primary: indigo
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      accent: pink
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode

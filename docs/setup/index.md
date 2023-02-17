@@ -17,6 +17,14 @@ Bar Assistant has official [docker image available here](https://hub.docker.com/
 
 ## Quick setup with Docker compose <small>recommended</small>
 
+!!! warning
+
+    If you are planning to use a local folder as a volume, you will need to create it and give it correct permissions before running docker compose commands.
+    ```bash
+    $ mkdir my-bar-data
+    $ sudo chown 33:33 my-bar-data
+    ```
+
 You can get started with the following docker compose file:
 
 ```yaml title="docker-compose.yml"
@@ -24,7 +32,7 @@ version: "3"
 
 services:
   meilisearch:
-    image: getmeili/meilisearch:v0.29 # (2)
+    image: getmeili/meilisearch:v1.0 # (2)
     environment:
       - MEILI_MASTER_KEY=$MEILI_MASTER_KEY
       - MEILI_ENV=production
@@ -39,18 +47,19 @@ services:
     restart: unless-stopped
 
   bar-assistant:
-    image: bar-assistant/server:latest
+    image: barassistant/server:latest
     environment:
       - APP_URL=$API_URL
+      - LOG_CHANNEL=stderr # (5)
       - MEILISEARCH_KEY=$MEILI_MASTER_KEY
       - MEILISEARCH_HOST=http://meilisearch:7700 # (1)
       - REDIS_HOST=redis # (4)
     restart: unless-stopped
     volumes:
-      - ./bar:/var/www/cocktails/storage/bar-assistant
+      - ./my-bar-data:/var/www/cocktails/storage/bar-assistant
 
   salt-rim:
-    image: bar-assistant/salt-rim:latest
+    image: barassistant/salt-rim:latest
     environment:
       - API_URL=$API_URL
       - MEILISEARCH_URL=$MEILISEARCH_URL
@@ -69,6 +78,7 @@ services:
 2. You should always use a specific Meilisearch version instead of latest tag.
 3. Make sure you have correctly configured nginx config location.
 4. Like Meilisearch above, this is using docker compose hostname as server host.
+4. This will log application errors to your docker logs.
 
 This will get you running with the following services:
 

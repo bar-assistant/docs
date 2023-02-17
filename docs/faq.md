@@ -2,6 +2,10 @@
 
 Here you can find frequently asked questions and their answers.
 
+## How do I migrate from kmikus12/bar-assistant-server image?
+
+TODO
+
 ## How do I disable new user registrations?
 
 You can disable `/register` endpoint with environment variable.
