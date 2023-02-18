@@ -1,3 +1,8 @@
+---
+hide:
+  - navigation
+---
+
 # FAQ
 
 Here you can find frequently asked questions and their answers.
@@ -45,5 +50,9 @@ $ php artisan bar:make-admin "user@email.com"
 ```
 
 ## How do I check logs?
+
+TODO
+
+## Where can I find API documentation?
 
 TODO

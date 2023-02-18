@@ -31,3 +31,12 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+nav:
+  - 'index.md'
+  - Setup:
+    - 'setup/index.md'
+    - 'setup/backups.md'
+    - 'setup/updating.md'
+  - 'usage/index.md'
+  - 'faq.md'
+  - 'changelog.md'

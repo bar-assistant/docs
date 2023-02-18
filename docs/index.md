@@ -1,3 +1,8 @@
+---
+hide:
+  - navigation
+---
+
 # About
 
 Bar Assistant is a self hosted application for managing your home bar. It allows you to search and filter cocktails, add ingredients and create custom cocktail recipes.

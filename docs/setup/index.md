@@ -1,94 +1,22 @@
 # Installation
 
-Bar Assistant is made with [Laravel](https://laravel.com), you can check out [default laravel requirements here](https://laravel.com/docs/9.x/deployment). But in general, the server requirements for running Bar Assistant API are:
+Bar Assistant server is made with PHP and Laravel framework. It is using Meilisearch as a primary [Scout driver](https://laravel.com/docs/scout). It's main purpose is to index cocktails and ingredients and power filtering and searching on the frontend. Checkout [this guide here](https://docs.meilisearch.com/learn/cookbooks/docker.html) on how to setup Meilisearch docker instance.
 
-- PHP >= 8.1, with the following extensions
-    - GD Extension
-    - OpCache Extension
-    - Redis Extension
-    - Zip Extension
-- Sqlite 3
-- Redis server instance
-- [Meilisearch server](https://github.com/meilisearch) instance (v0.29)
+Bar Assistant has official [docker image available here](https://hub.docker.com/u/barassistant). Docker compose example repository [can be found here](https://github.com/bar-assistant/docker/).
 
-Bar Assistant is using Meilisearch as a primary [Scout driver](https://laravel.com/docs/9.x/scout). It's main purpose is to index cocktails and ingredients and power filtering and searching on the frontend. Checkout [this guide here](https://docs.meilisearch.com/learn/cookbooks/docker.html) on how to setup Meilisearch docker instance.
+The recommended way of installation for the most people is with docker containers.
 
-Bar Assistant has official [docker image available here](https://hub.docker.com/u/kmikus12). Docker compose example [can be found here](https://github.com/bar-assistant/docker/).
-
-## Quick setup with Docker compose <small>recommended</small>
+## Quick setup with Docker compose
 
 !!! warning
 
-    If you are planning to use a local folder as a volume, you will need to create it and give it correct permissions before running docker compose commands.
+    If you are planning to use a local folder as a volume, you will need to create it first and give it correct permissions before running docker compose commands.
     ```bash
     $ mkdir my-bar-data
     $ sudo chown 33:33 my-bar-data
     ```
 
-You can get started with the following docker compose file:
-
-```yaml title="docker-compose.yml"
-version: "3"
-
-services:
-  meilisearch:
-    image: getmeili/meilisearch:v1.0 # (2)
-    environment:
-      - MEILI_MASTER_KEY=$MEILI_MASTER_KEY
-      - MEILI_ENV=production
-    restart: unless-stopped
-    volumes:
-      - ./meili_data:/meili_data
-
-  redis:
-    image: redis
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-    restart: unless-stopped
-
-  bar-assistant:
-    image: barassistant/server:latest
-    environment:
-      - APP_URL=$API_URL
-      - LOG_CHANNEL=stderr # (5)
-      - MEILISEARCH_KEY=$MEILI_MASTER_KEY
-      - MEILISEARCH_HOST=http://meilisearch:7700 # (1)
-      - REDIS_HOST=redis # (4)
-    restart: unless-stopped
-    volumes:
-      - ./my-bar-data:/var/www/cocktails/storage/bar-assistant
-
-  salt-rim:
-    image: barassistant/salt-rim:latest
-    environment:
-      - API_URL=$API_URL
-      - MEILISEARCH_URL=$MEILISEARCH_URL
-    restart: unless-stopped
-
-  webserver:
-    image: nginx:alpine
-    restart: unless-stopped
-    ports:
-      - 3000:3000
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf # (3)
-```
-
-1. This is container name that automatically gets setup in docker compose network.
-2. You should always use a specific Meilisearch version instead of latest tag.
-3. Make sure you have correctly configured nginx config location.
-4. Like Meilisearch above, this is using docker compose hostname as server host.
-4. This will log application errors to your docker logs.
-
-This will get you running with the following services:
-
-- Bar Assistant API server
-- Salt Rim web client
-- Redis service for caching
-- Meilisearch service for searching and filtering
-- Nginx as a default web server service
-
-Also, you must create the `.env` file and `nginx.conf` file. The .env file will contain your environment variables.
+First, create the `.env` file and `nginx.conf` files. The .env file will contain your environment variables.
 
 ```properties title=".env"
 # Your Meilisearch master key
@@ -132,22 +60,104 @@ server {
 }
 ```
 
-!!! warning
+!!! tip
 
-    Plese note that these URLs are related to container hostnames that docker compose automatically creates inside it's default network.
+    These `proxy_pass` URLs are related to container hostnames that docker compose automatically creates inside it's default network.
     If you renamed services inside your compose file you will have to also update these values.
 
-You can put all those files in a single directory, and run the stack with `docker compose up -d`.
+Then create `docker-compose.yml` file with the following contents.
+
+```yaml title="docker-compose.yml"
+version: "3"
+
+services:
+  meilisearch:
+    image: getmeili/meilisearch:v1.0 # (2)
+    environment:
+      - MEILI_MASTER_KEY=$MEILI_MASTER_KEY
+      - MEILI_ENV=production
+    restart: unless-stopped
+    volumes:
+      - meilisearch_data:/meili_data
+
+  redis:
+    image: redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    restart: unless-stopped
+
+  bar-assistant:
+    image: barassistant/server:latest
+    environment:
+      - APP_URL=$API_URL
+      - LOG_CHANNEL=stderr # (5)
+      - MEILISEARCH_KEY=$MEILI_MASTER_KEY
+      - MEILISEARCH_HOST=http://meilisearch:7700 # (1)
+      - REDIS_HOST=redis # (4)
+    restart: unless-stopped
+    volumes:
+      - bar_data:/var/www/cocktails/storage/bar-assistant
+
+  salt-rim:
+    image: barassistant/salt-rim:latest
+    environment:
+      - API_URL=$API_URL
+      - MEILISEARCH_URL=$MEILISEARCH_URL
+    restart: unless-stopped
+
+  webserver:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - 3000:3000 # (6)
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf # (3)
+
+volumes:
+  - bar_data:
+  - meilisearch_data:
+```
+
+1. This is container name that automatically gets setup in docker compose network.
+2. You should always use a specific Meilisearch version instead of latest tag.
+3. Make sure you have correctly configured nginx config location.
+4. Like Meilisearch above, this is using docker compose hostname as server host.
+5. This will log application errors to your docker logs.
+6. The port with which you will access the frontend.
+
+This will get you running with the following services:
+
+- Bar Assistant API server
+- Salt Rim web client
+- Redis service for caching
+- Meilisearch service for searching and filtering
+- Nginx as a default web server service
+
+You can put all those files in a single directory, and run the stack with `docker compose up -d`. You can now access the application on URL and port that you defined. By default this will be [localhost:3000](http://localhost:3000).
+
+Please, note that it can sometimes take a minute or more (depending on the hardware) for the server to start. You can check your docker logs (`$ docker compose logs bar-assistant`) for "Application ready" message.
+
+Default email and password are:
+
+- Email: `admin@example.com`
+- Password: `password`
 
 ## Manual installation
 
-Please note, you should be familiar with linux server setup. A few prerequisites are:
+Please note, you should be familiar with linux server setup.
 
-- You have installed PHP 8.1 with required extensions
+Bar Assistant is made with [Laravel](https://laravel.com), you can check out [default laravel requirements here](https://laravel.com/docs/9.x/deployment). A few extra prerequisites are:
+
+- You have installed PHP >= 8.1 with required extensions:
+    - GD Extension
+    - OPCache Extension
+    - Redis Extension
+    - Zip Extension
 - You have [Composer](https://getcomposer.org) installed
-- You have an empty Meilisearch instance up and running
-- You have `git` and `sqlite3` installed
-- You have a working redis instance
+- You have Sqlite3 installed
+- You have Redis server instance running
+- You have empty [Meilisearch server](https://github.com/meilisearch) instance (>=v1.0)
+- You have `git` installed
 
 After cloning the repository, do the following:
 
