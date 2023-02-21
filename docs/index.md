@@ -20,8 +20,3 @@ Bar Assistant is a self hosted application for managing your home bar. It allows
 - Assign glass types to cocktails
 - Cocktail recipe scraping
 - Cocktail ratings
-
-## Planned features
-- User defined cocktail collections
-- Add user notes to cocktail
-- Add cocktail flavor profiles

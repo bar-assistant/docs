@@ -21,10 +21,11 @@ First, create the `.env` file and `nginx.conf` files. The .env file will contain
 ```properties title=".env"
 # Your Meilisearch master key
 # Find out more here: https://docs.meilisearch.com/learn/getting_started/quick_start.html#securing-meilisearch
-MEILI_MASTER_KEY=masterKey
+MEILI_MASTER_KEY=masterKey-make-it-long-for-security
 
 # Base URL of the application
 # You should update this value to the one you are using (ex: http://192.168.100.100, https://my-personal-bar.com)
+# In this case it's the URL and port that is exposed in webserver service
 # The value MUST be without trailing slash
 BASE_URL=http://localhost:3000
 
@@ -88,18 +89,24 @@ services:
 
   bar-assistant:
     image: barassistant/server:latest
+    depends_on:
+      - meilisearch
+      - redis
     environment:
       - APP_URL=$API_URL
       - LOG_CHANNEL=stderr # (5)
       - MEILISEARCH_KEY=$MEILI_MASTER_KEY
       - MEILISEARCH_HOST=http://meilisearch:7700 # (1)
       - REDIS_HOST=redis # (4)
+      - ALLOW_REGISTRATION=true
     restart: unless-stopped
     volumes:
       - bar_data:/var/www/cocktails/storage/bar-assistant
 
   salt-rim:
     image: barassistant/salt-rim:latest
+    depends_on:
+      - bar-assistant
     environment:
       - API_URL=$API_URL
       - MEILISEARCH_URL=$MEILISEARCH_URL

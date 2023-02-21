@@ -7,10 +7,6 @@ hide:
 
 Here you can find frequently asked questions and their answers.
 
-## How do I migrate from kmikus12/bar-assistant-server image?
-
-TODO
-
 ## How do I disable new user registrations?
 
 You can disable `/register` endpoint with environment variable.
@@ -51,8 +47,10 @@ $ php artisan bar:make-admin "user@email.com"
 
 ## How do I check logs?
 
-TODO
+``` bash
+$ docker compose logs
+```
 
 ## Where can I find API documentation?
 
-TODO
+Visit `/docs` path on your API instance, ex: https://your-bar-api-server.com/docs
