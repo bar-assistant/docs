@@ -123,8 +123,8 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf # (3)
 
 volumes:
-  - bar_data:
-  - meilisearch_data:
+  bar_data:
+  meilisearch_data:
 ```
 
 1. This is container name that automatically gets setup in docker compose network.
