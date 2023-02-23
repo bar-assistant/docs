@@ -1,6 +1,8 @@
 # Installation
 
-Bar Assistant server is made with PHP and Laravel framework. It is using Meilisearch as a primary [Scout driver](https://laravel.com/docs/scout). It's main purpose is to index cocktails and ingredients and power filtering and searching on the frontend. Checkout [this guide here](https://docs.meilisearch.com/learn/cookbooks/docker.html) on how to setup Meilisearch docker instance.
+Bar Assistant API is made with PHP and Laravel framework. It is using Meilisearch as a primary [Scout driver](https://laravel.com/docs/scout). It's main purpose is to index cocktails and ingredients and power filtering and searching on the frontend. Checkout [this guide here](https://docs.meilisearch.com/learn/cookbooks/docker.html) on how to setup Meilisearch docker instance.
+
+Salt Rim is official web client for Bar Assistant made with Vue.js 3.
 
 Bar Assistant has official [docker image available here](https://hub.docker.com/u/barassistant). Docker compose example repository [can be found here](https://github.com/bar-assistant/docker/).
 
@@ -16,7 +18,7 @@ The recommended way of installation for the most people is with docker container
     $ sudo chown 33:33 my-bar-data
     ```
 
-First, create the `.env` file and `nginx.conf` files. The .env file will contain your environment variables.
+First, create the `.env` file and `nginx.conf` files. The .env file will contain your basic configuration variables.
 
 ```properties title=".env"
 # Your Meilisearch master key

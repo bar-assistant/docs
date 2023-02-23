@@ -20,3 +20,14 @@ Bar Assistant is a self hosted application for managing your home bar. It allows
 - Assign glass types to cocktails
 - Cocktail recipe scraping
 - Cocktail ratings
+
+## Technology
+
+Bar Assistant services are built with:
+
+- PHP 8
+- SQLite 3
+- Meilisearch
+- Nginx
+- Redis
+- Vue.js 3

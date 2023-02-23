@@ -42,13 +42,16 @@ $ docker compose exec -it bar-assistant php artisan bar:dump-search
 To give admin rights to a specific user you can use the following command.
 
 ``` bash
-$ php artisan bar:make-admin "user@email.com"
+$ docker compose exec -it bar-assistant php artisan bar:make-admin "user@email.com"
 ```
 
 ## How do I check logs?
 
+Most of the logs are available in docker output. Depending on the configuration, some Bar Assistant specific logs are also written inside the container in the file: `/var/www/cocktails/storage/logs/laravel.log`.
+
 ``` bash
-$ docker compose logs
+$ docker compose logs bar-assistant
+$ docker compose logs salt-rim
 ```
 
 ## Where can I find API documentation?

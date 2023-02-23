@@ -8,7 +8,7 @@ Bar Assistant version 1.5 includes an overhaul of docker image:
 - Included docker compose configuration now exposes only one service
 - Updated Meilisearch to stable version (1.0)
 
-The migration steps are:
+The basic migration steps are:
 
 - Backup old data into a single folder
 - Remove old services
