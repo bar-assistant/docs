@@ -39,7 +39,7 @@ nav:
     - 'setup/index.md'
     - 'setup/updating.md'
     - 'setup/backups.md'
-  # - 'usage/index.md'
+  - 'usage/index.md'
   - 'faq.md'
   # - 'changelog.md'
 

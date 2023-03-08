@@ -25,19 +25,21 @@ When you click on a cocktail you will see cocktail details page. This page conta
 
 Inside the ingredient section you can change the number of servings and default ingredient unit.
 
-## Shelf
+<!-- ## Shelf
 
-![Shelf](/assets/screenshots/shelf.png)
+![Shelf](/assets/screenshots/shelf.png) -->
 
-## Users
+<!-- ## Users
 
-## Settings
+## Settings -->
 
 ## Recipe scraping
 
 With Bar Assistant you can scrape cocktail recipes directly from the given webpage. Every website has it's scraper class located in `Kami\Cocktail\Scraper\Sites` namespace.
 
-To import a recipe, check the following command:
+You can import recipe directly from the web client by visiting `/cocktails/scrape` path, or via command line.
+
+To import a recipe via command line, check the following command:
 
 ``` bash
 $ php artisan bar:scrape --help
