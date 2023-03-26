@@ -36,6 +36,12 @@ MEILISEARCH_URL=$BASE_URL/search
 
 # Bar Assistant server instance URL, change if you are using different host from base url, otherwise leave as default
 API_URL=$BASE_URL/bar
+
+# (Optional) Bar name
+BAR_NAME=
+
+# (Optional) Short bar description
+BAR_DESCRIPTION=
 ```
 
 And here are the contents of nginx configuration.
@@ -114,6 +120,8 @@ services:
     environment:
       - API_URL=$API_URL
       - MEILISEARCH_URL=$MEILISEARCH_URL
+      - BAR_NAME=$BAR_NAME
+      - DESCRIPTION=$BAR_DESCRIPTION
     restart: unless-stopped
 
   webserver:
