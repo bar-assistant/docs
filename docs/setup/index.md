@@ -32,10 +32,10 @@ MEILI_MASTER_KEY=masterKey-make-it-long-for-security
 BASE_URL=http://localhost:3000
 
 # Meilisearch server instance URL, change if you are using different host from base url, otherwise leave as default
-MEILISEARCH_URL=$BASE_URL/search
+MEILISEARCH_URL=${BASE_URL}/search
 
 # Bar Assistant server instance URL, change if you are using different host from base url, otherwise leave as default
-API_URL=$BASE_URL/bar
+API_URL=${BASE_URL}/bar
 
 # (Optional) Bar name
 BAR_NAME=
@@ -122,6 +122,7 @@ services:
       - MEILISEARCH_URL=$MEILISEARCH_URL
       - BAR_NAME=$BAR_NAME
       - DESCRIPTION=$BAR_DESCRIPTION
+      - DEFAULT_LOCALE="en-US"
     restart: unless-stopped
 
   webserver:
