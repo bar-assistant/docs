@@ -51,6 +51,12 @@ Then after the update you need to regenerate API keys used for accessing Meilise
 $ docker compose exec -it bar-assistant php artisan bar:refresh-user-search-keys
 ```
 
+And then restart the Bar Assistant container to recreate the indexes
+
+``` bash
+$ docker compose restart bar-assistant
+```
+
 ### The "proper" way
 
 If, for some reason, you need all the current data in the Meilisearch, you can follow the official guide on how to update.
