@@ -83,7 +83,7 @@ version: "3"
 
 services:
   meilisearch:
-    image: getmeili/meilisearch:v1.0 # (2)
+    image: getmeili/meilisearch:v1.1 # (2)
     environment:
       - MEILI_MASTER_KEY=$MEILI_MASTER_KEY
       - MEILI_ENV=production
