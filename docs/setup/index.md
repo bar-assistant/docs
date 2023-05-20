@@ -122,7 +122,7 @@ services:
       - MEILISEARCH_URL=$MEILISEARCH_URL
       - BAR_NAME=$BAR_NAME
       - DESCRIPTION=$BAR_DESCRIPTION
-      - DEFAULT_LOCALE="en-US"
+      - DEFAULT_LOCALE=en-US
     restart: unless-stopped
 
   webserver:
