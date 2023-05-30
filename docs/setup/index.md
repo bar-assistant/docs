@@ -198,7 +198,7 @@ APP_URL=
 MEILISEARCH_HOST=
 # Meilisearch search key
 MEILISEARCH_KEY=
-# If using redis, the following
+# Redis info
 REDIS_HOST=127.0.0.1
 REDIS_PASSWORD=null
 REDIS_PORT=6379
