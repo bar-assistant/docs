@@ -1,5 +1,6 @@
 site_name: Bar Assistant Documentation
 repo_url: https://github.com/karlomikus/bar-assistant
+site_url: https://bar-assistant.github.io/docs
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true

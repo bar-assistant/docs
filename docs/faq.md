@@ -15,6 +15,14 @@ You can disable `/register` endpoint with environment variable.
 ALLOW_REGISTRATION=false
 ```
 
+## How do I disable API authentication?
+
+You can use the env variable.
+
+```bash
+DISABLE_LOGIN=true
+```
+
 ## Why can't I login with the default user on a fresh installation?
 
 Check your logs for error messages. You probably had some problems when setting up the first-time installation, this can lead to skipping initial database data importing.
@@ -61,11 +69,7 @@ $ docker compose restart bar-assistant
 
 If, for some reason, you need all the current data in the Meilisearch, you can follow the official guide on how to update.
 
-To update your Meilisearch instance, you first need to [create a dump of your database](https://docs.meilisearch.com/learn/cookbooks/docker.html#generating-dumps-and-updating-meilisearch). Bar Assistant has a command that will create a dump task. Then follow the rest of the instructions on the Meilisearch docs.
-
-``` bash
-$ docker compose exec -it bar-assistant php artisan bar:dump-search
-```
+To update your Meilisearch instance, you first need to [create a dump of your database](https://docs.meilisearch.com/learn/cookbooks/docker.html#generating-dumps-and-updating-meilisearch). Then follow the rest of the instructions on the Meilisearch docs.
 
 Then after the update you need to regenerate API keys used for accessing Meilisearch.
 
