@@ -168,15 +168,16 @@ Please note, you should be familiar with linux server setup.
 
 Bar Assistant is made with [Laravel](https://laravel.com), you can check out [default laravel requirements here](https://laravel.com/docs/9.x/deployment). A few extra prerequisites are:
 
-- You have installed PHP >= 8.1 with required extensions:
-    - GD Extension
+- You have installed PHP >= 8.2 with required extensions:
+    - Imagick Extension
     - OPCache Extension
     - Redis Extension
     - Zip Extension
 - You have [Composer](https://getcomposer.org) installed
 - You have Sqlite3 installed
 - You have Redis server instance running
-- You have empty [Meilisearch server](https://github.com/meilisearch) instance (>=v1.0)
+- You have [Meilisearch server](https://github.com/meilisearch) instance (>=v1.1)
+  - Since version 2.0.0 you can also use Algolia and Database as search server (via Laravel Scout)
 - You have `git` installed
 
 After cloning the repository, do the following:
@@ -197,7 +198,7 @@ APP_URL=
 MEILISEARCH_HOST=
 # Meilisearch search key
 MEILISEARCH_KEY=
-# If using redis, the following
+# Redis info
 REDIS_HOST=127.0.0.1
 REDIS_PASSWORD=null
 REDIS_PORT=6379

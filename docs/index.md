@@ -25,9 +25,9 @@ Bar Assistant is a self hosted application for managing your home bar. It allows
 
 Bar Assistant services are built with:
 
-- PHP 8
-- SQLite 3
+- PHP 8 (Laravel)
+- SQLite
 - Meilisearch
 - Nginx
 - Redis
-- Vue.js 3
+- Vue 3
