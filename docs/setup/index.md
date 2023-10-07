@@ -168,3 +168,16 @@ volumes:
 You can put all those files in a single directory, and run the stack with `docker compose up -d`. You can now access the application on URL and port that you defined. By default this will be [localhost:3000](http://localhost:3000).
 
 Please, note that it can sometimes take a minute or more (depending on the hardware) for the server to start. You can check your docker logs (`$ docker compose logs bar-assistant`) for "Application ready" message.
+
+Before you login you need to create a new user, you can do that by click register button.
+
+## Updating
+
+You can update by pulling the newest images and restarting the stack.
+
+``` bash
+# Pull images
+$ docker compose pull
+# Run the stack
+$ docker compose up -d
+```
