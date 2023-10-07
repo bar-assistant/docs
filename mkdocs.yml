@@ -1,4 +1,4 @@
-site_name: Bar Assistant Documentation
+site_name: Bar Assistant
 repo_url: https://github.com/karlomikus/bar-assistant
 site_url: https://bar-assistant.github.io/docs
 markdown_extensions:
@@ -35,11 +35,13 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
 nav:
-  - 'index.md'
+  # - 'index.md'
   - Setup:
     - 'setup/index.md'
-    - 'setup/updating.md'
+    - 'setup/source-install.md'
+    - 'setup/development.md'
     - 'setup/backups.md'
+    - 'setup/migrate-to-15.md'
   - 'usage/index.md'
   - 'faq.md'
   # - 'changelog.md'

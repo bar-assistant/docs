@@ -1,4 +1,4 @@
-# Migration guide (v1.5)
+# Migration - v1.x to v1.5
 
 Bar Assistant version 1.5 includes an overhaul of docker image:
 
