@@ -5,7 +5,9 @@ hide:
 
 # Usage
 
-## Ingredients
+This area is still WIP...
+
+<!-- ## Ingredients
 
 Bar Assistant comes with some basic ingredients included. On the main page of the ingredients you can filter and search for ingredients.
 
@@ -19,34 +21,20 @@ Depending on your inital setup, Bar Assistant comes with over 100 cocktails alre
 
 When you click on a cocktail you will see cocktail details page. This page contains more details about ingredients that go into a cocktail, possible ingredient substitutes and cocktail actions.
 
-Inside the ingredient section you can change the number of servings and default ingredient unit.
+Inside the ingredient section you can change the number of servings and default ingredient unit. -->
 
-## Recipe scraping
+## Recipe importing
 
-With Bar Assistant you can scrape cocktail recipes directly from the given webpage. Every website has it's scraper class located in `Kami\Cocktail\Scraper\Sites` namespace.
+You can import recipes through a various sources. If you are missing some options go on github and ask for a new feature.
 
-You can import recipe directly from the web client by visiting `/cocktails/scrape` path, or via command line.
+### Import from website
 
-To import a recipe via command line, check the following command:
+With Bar Assistant you can scrape cocktail recipes directly from the given webpage. Every website has it's scraper class located in `Kami\Cocktail\Scraper\Sites` namespace. If a website is not officially supported Bar Assistant will still try to extract recipe information.
 
-``` bash
-$ php artisan bar:scrape --help
-```
+### Import from YAML/JSON
 
-**Please note that this feature is error prone, mainly when it comes to ingredient parsing.**
+You can import recipes via custom YAML/JSON format.
 
-Example with [TuxedoNo2 website](https://tuxedono2.com/):
+### Import from Bar Assistant collection
 
-``` bash
-# Run full scraping
-$ php artisan bar:scrape https://tuxedono2.com/coco-no-coco-cocktail-recipe
-
-# Don't import the ingredients
-$ php artisan bar:scrape -i https://tuxedono2.com/coco-no-coco-cocktail-recipe
-
-# Overwrite name and add custom tags
-$ php artisan bar:scrape --tags=custom,tags,lorem --name="My imported recipe" https://tuxedono2.com/coco-no-coco-cocktail-recipe
-
-# Also you can run it from docker
-$ docker compose exec -it bar-assistant php artisan bar:scrape https://tuxedono2.com/coco-no-coco-cocktail-recipe
-```
+You can import a collection of recipes from another Bar Assistant instance.

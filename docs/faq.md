@@ -15,20 +15,6 @@ You can disable `/register` endpoint with environment variable.
 ALLOW_REGISTRATION=false
 ```
 
-## Why am I missing images of cocktails and ingredients?
-
-Firstly, check that you have correctly configured your docker volumes. You should have an uploads folder with all the images inside it.
-
-It can also mean your are missing some attributes in your search indexes. You can run the following command to re-sync cocktails and ingredients with their indexes:
-
-``` bash
-# Docker compose commands:
-# Sync cocktails
-$ docker compose exec -it bar-assistant php artisan scout:import "Kami\\Cocktail\\Models\\Cocktail"
-# Sync ingredients
-$ docker compose exec -it bar-assistant php artisan scout:import "Kami\\Cocktail\\Models\\Ingredient"
-```
-
 ## How do I update Meilisearch?
 
 ### The easy way
@@ -36,13 +22,16 @@ $ docker compose exec -it bar-assistant php artisan scout:import "Kami\\Cocktail
 Everytime you restart Bar Assistant container the cocktail and ingredient data gets synced with Meilisearch. So the easiest way to update the Meilisearch is to delete the container and the volume, and create a new one.
 
 ``` bash
-$ docker compose rm -vs meilisearch
+# Stop the container
+$ docker compose stop meilisearch
+# Remove the container and related volume
+$ docker compose rm meilisearch -v
 ```
 
-And then restart the Bar Assistant container to recreate the indexes
+Update your `docker-compose.yml` file with new Meilisearch version, and run the stack.
 
 ``` bash
-$ docker compose restart bar-assistant
+$ docker compose up -d
 ```
 
 ### The "proper" way
