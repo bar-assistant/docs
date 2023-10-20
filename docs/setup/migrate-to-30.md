@@ -1,6 +1,10 @@
 # Migration - v2.x to v3.x
 
-If you are using docker compose this process is really simple. Update your docker compose with new versions.
+If you are using docker compose this process is really simple.
+
+First make sure you are on latest v2.x version (v2.6.0 at the time of writing).
+
+Update your docker compose with new versions.
 
 ``` yaml
 # For bar assistant server
