@@ -35,10 +35,10 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
 nav:
-  - 'index.md'
   - Setup:
     - 'setup/index.md'
     - 'setup/source-install.md'
+    - 'setup/mailing.md'
     - 'setup/development.md'
     - 'setup/backups.md'
     - 'setup/migrate-to-15.md'
