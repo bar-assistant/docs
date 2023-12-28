@@ -7,7 +7,7 @@ hide:
 
 Here you can find frequently asked questions and their answers.
 
-## How do I disable new user registrations?
+## How do I disable user registrations?
 
 You can disable `/register` endpoint with environment variable.
 

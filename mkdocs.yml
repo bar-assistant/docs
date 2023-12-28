@@ -20,21 +20,22 @@ theme:
     - navigation.tabs
   palette:
     # Palette toggle for light mode
-    - scheme: indigo
+    - scheme: black
       accent: pink
-      primary: indigo
+      primary: black
       toggle:
-        icon: material/brightness-7 
+        icon: material/brightness-7
         name: Switch to dark mode
 
     # Palette toggle for dark mode
     - scheme: slate
       accent: pink
-      primary: indigo
+      primary: deep orange
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
 nav:
+  - index.md
   - Setup:
     - 'setup/index.md'
     - 'setup/source-install.md'
@@ -43,9 +44,7 @@ nav:
     - 'setup/backups.md'
     - 'setup/migrate-to-15.md'
     - 'setup/migrate-to-30.md'
-  - 'usage/index.md'
   - 'faq.md'
-  # - 'changelog.md'
 
 extra:
   analytics:
