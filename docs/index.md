@@ -107,25 +107,67 @@ Bar Assistant allows you to share recipes in a few ways. All actions are availab
 
 There is a few user roles in the Bar Assistant.
 
-### Admin
+**Admin**
 
 Complete access to bar actions. Can't delete the bar.
 
-### Moderator
+**Moderator**
 
 Can manage cocktails and ingredients. Can manage bar settings except bar members.
 
-### General
+**General**
 
 Can manage cocktails and ingredients.
 
-### Guest
+**Guest**
 
 Can only view, favorite and rate recipes and ingredients. Can also create collections.
 
 !!! warning
 
     Keep in mind that the user that created the bar can delete it at any point (independent of the role he has). Deleting the bar also deletes all the recipes and ingredients that members added.
+
+### Role breakdown
+
+**Bar:**
+
+    create: anyone
+    view: bar members
+    edit: bar owner, admin
+    delete: bar owner
+    create: anyone
+    remove members: bar owner, admin
+
+**Methods, Tags, Utensils, Ingredient categories, Glass types:**
+
+    create: admin, moderator
+    view: bar members
+    edit: admin, moderator
+    delete: admin, moderator
+
+**Cocktails:**
+
+    create: admin, moderator, general
+    view: bar members
+    edit: author, admin, moderator
+    delete: author, admin, moderator
+    create public link: author, admin, moderator
+    rate: bar members
+    add notes: bar members
+
+**Ingredients:**
+
+    create: admin, moderator, general
+    view: bar members
+    edit: author, admin, moderator
+    delete: author, admin, moderator
+
+**Users:**
+
+    create: admin, moderator
+    view: admin, moderator
+    edit: admin, moderator
+    delete: only user can delete his own account
 
 ## Export recipes (Server)
 
