@@ -9,11 +9,13 @@ Here you can find some information about using some of the Bar Assistant feature
 
 ## Initial bar data
 
+<!-- ![Screenshot](assets/screenshots/bar-create.png){ align=left } -->
+
 When you create a new bar, you can choose to start a bar with cocktails and ingredients already included. All that initial data is managed in a separate repository and pulled when building a docker image. You can view and contribute to that data via the [Bar Assistant Public Data repository](https://github.com/bar-assistant/data).
 
-<!-- ![Screenshot](assets/screenshots/bar-create.png) -->
-
 ## Showing what recipes you can make
+
+<!-- ![Shelf cocktails](assets/screenshots/shelf-cocktails.png){ align=left } -->
 
 All cocktails that you can make and ingredients that you have are managed via "Shelf". To see what recipes you can make you need to add all ingredients that you have to your shelf.
 
@@ -23,9 +25,17 @@ All cocktails that you can make and ingredients that you have are managed via "S
 4. Go to "Cocktails" page
 5. In filters check "Cocktails I can make" checkbox
 
+### Controlling ingredient matching
+
+You can increase your available cocktail recipes in a few ways.
+
+- You can edit cocktail recipes to include substitutes for specific ingredients. So if you have any of the substitute ingredients they will show up in your shelf.
+- Use the "Optional" checkbox for specific ingredients. These cocktail ingredients will be ignored when matching your shelf ingredients.
+- Enable "Track parent ingredient as a substitute ingredient in your shelf" in your profile. You can edit a specific ingredient to be a parent of some generic ingredient. This will match all ingredients that are related, for example, if "Scotch Whiskey" is a child ingredient of "Whiskey", it will try to match both of them.
+
 ## Adding recipes
 
-You can easily create new cocktail recipes by click "Create cocktail" button on "Cocktails" page. From that page you can manage all data related to the recipe including ingredients, tags, images and more.
+You can create new cocktail recipes by clicking "Create cocktail" button on "Cocktails" page. From that page you can manage all data related to the recipe including ingredients, tags, images and more.
 
 You can also import recipes through various sources. If you are missing some import options you can open a [GitHub issue](https://github.com/karlomikus/bar-assistant) and describe what would you want to be added.
 

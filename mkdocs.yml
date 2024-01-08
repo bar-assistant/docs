@@ -9,6 +9,8 @@ markdown_extensions:
   - pymdownx.superfences
   - admonition
   - pymdownx.details
+  - attr_list
+  - md_in_html
 theme:
   name: material
   logo: assets/logo.svg
