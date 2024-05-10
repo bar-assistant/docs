@@ -57,8 +57,10 @@ You can import a collection of recipes from another Bar Assistant instance.
 
 If you previously exported recipes with `php artisan bar:export-recipes {barId}` command, you can use `php artisan bar:import-zip {path}` command to import those recipes. You will have to provide either an existing bar id or you will have the option to create a new one.
 
-1. Find email of a user that you want to delete, for example: `karlo@barassistant.app`.
-2. If using docker, run `docker compose exec bar-assistant php artisan bar:delete-user karlo@barassistant.app`
+You can also import any .zip file you put in backups folder. Here's an example with docker compose:
+
+1. Move .zip file with recipes into backups folder. This folder should be available to you if you mounted it as volume, inside container its located at `/var/www/cocktails/storage/bar-assistant/backups`.
+2. Run the following command with .zip path relative to mounted storage folder: `docker compose exec app php artisan bar:import-recipes backups/my-recipes.zip`
 3. Follow on screen instructions
 
 ## Recipe collections
