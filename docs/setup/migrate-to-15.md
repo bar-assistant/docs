@@ -48,7 +48,7 @@ $ docker compose down
 
 ## Step 3: Update your compose file
 
-Use the example from the [setup guide](/setup).
+Use the example from the [setup guide](index.md).
 
 The only changes you need to do is to update volume configuration to use your backup folder, and update exposed port of the webserver service.
 
