@@ -71,16 +71,11 @@ version: "3"
 
 services:
   meilisearch:
-    image: getmeili/meilisearch:v1.4 # (2)
+    image: getmeili/meilisearch:v1.7 # (2)
     environment:
       - MEILI_MASTER_KEY=$MEILI_MASTER_KEY
       - MEILI_ENV=production
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:7700"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
     volumes:
       - meilisearch_data:/meili_data
 
@@ -89,19 +84,12 @@ services:
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 1s
-      timeout: 3s
-      retries: 30
 
   bar-assistant:
     image: barassistant/server:v3
     depends_on:
-      meilisearch:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
+      - meilisearch
+      - redis
     environment:
       # - PUID=1000 # Optional
       # - PGID=1000 # Optional
@@ -112,19 +100,13 @@ services:
       - REDIS_HOST=redis # (4)
       - ALLOW_REGISTRATION=true
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
     volumes:
       - bar_data:/var/www/cocktails/storage/bar-assistant
 
   salt-rim:
     image: barassistant/salt-rim:v2
     depends_on:
-      bar-assistant:
-        condition: service_healthy
+      - bar-assistant
     environment:
       - API_URL=$API_URL
       - MEILISEARCH_URL=$MEILISEARCH_URL
@@ -132,22 +114,14 @@ services:
       - DESCRIPTION=$BAR_DESCRIPTION
       - DEFAULT_LOCALE=en-US
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   webserver:
     image: nginx:alpine
     restart: unless-stopped
     depends_on:
-      bar-assistant:
-        condition: service_healthy
-      salt-rim:
-        condition: service_healthy
-      meilisearch:
-        condition: service_healthy
+      - bar-assistant
+      - salt-rim
+      - meilisearch
     ports:
       - 3000:3000 # (6)
     volumes:
