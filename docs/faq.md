@@ -7,6 +7,10 @@ hide:
 
 Here you can find frequently asked questions and their answers.
 
+## Why am I missing some features in web app?
+
+Salt Rim uses background workers to power the web frontend and PWA and the browser usually caches files related to this. To verify that you have a cache issue try another browser or your current browser's incognito mode to check out the frontend.
+
 ## How do I disable user registrations?
 
 You can disable `/register` endpoint with environment variable.
@@ -52,3 +56,17 @@ $ docker compose logs salt-rim
 ## Where can I find API documentation?
 
 Visit `/docs` path on your API instance, ex: https://your-bar-api-server.com/docs
+
+## Where do I find more recipes?
+
+Some of Bar Assistant community members are hosting their recipe databases:
+
+- [zhdenny/bar_assistant_database](https://github.com/zhdenny/bar_assistant_database)
+- [bar-assistant/data](https://github.com/bar-assistant/data)
+
+Or you can visit some of sites that Bar Assistant can import recipes from:
+
+- [PunchDrink](https://punchdrink.com/)
+- [Imbibe](https://imbibemagazine.com/)
+- [Liquor.com](https://www.liquor.com/)
+- [CocktailParty](https://cocktailpartyapp.com/)

@@ -7,6 +7,10 @@ hide:
 
 Here you can find some information about using some of the Bar Assistant features.
 
+## Installation
+
+Visit [setup page](setup/index.md) to view installation steps.
+
 ## Initial bar data
 
 <!-- ![Screenshot](assets/screenshots/bar-create.png){ align=left } -->

@@ -47,6 +47,7 @@ nav:
     - 'setup/migrate-to-15.md'
     - 'setup/migrate-to-30.md'
   - 'faq.md'
+  - "OpenAPI Spec": https://api.barassistant.app/docs
 
 extra:
   analytics:
