@@ -46,6 +46,8 @@ nav:
     - 'setup/backups.md'
     - 'setup/migrate-to-15.md'
     - 'setup/migrate-to-30.md'
+    - 'setup/migrate-to-40.md'
+  - 'data.md'
   - 'faq.md'
   - "OpenAPI Spec": https://api.barassistant.app/docs
 
