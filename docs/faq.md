@@ -7,6 +7,17 @@ hide:
 
 Here you can find frequently asked questions and their answers.
 
+## Why do I get "Unable to connect to X API server." on a login page?
+
+This usually means that the client can't reach the API server. There could be a few reasons for this:
+
+- The API server is not running
+    - Restart the API server
+    - Check docker logs for errors
+- The API server is running but your browser can't reach it
+    - Check that the API server is reachable from your browser.
+    - **Example using default setup:** When you visit "http://localhost:3000/bar" you should see: "This is your Bar Assistant instance." message.
+
 ## Why am I missing some features in web app?
 
 Salt Rim uses background workers to power the web frontend and PWA and the browser usually caches files related to this. To verify that you have a cache issue try another browser or your current browser's incognito mode to check out the frontend.
