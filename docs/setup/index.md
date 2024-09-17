@@ -4,8 +4,8 @@ This is recommended way of installation. This will get you running with the foll
 
 - Bar Assistant API server
 - Salt Rim web client
-- Optional Redis service for caching and sessions
 - Meilisearch service for searching and filtering
+- Optional Redis service for caching and sessions
 - Optional web server used as a reverse proxy
 
 ## Docker Compose &middot; Nginx
@@ -110,8 +110,8 @@ services:
 
   # Reverse proxy all web services
   # You can remove this service if you already have a reverse proxy somewhere in your stack,
-  # but you will need to manually update the configurations
-  # Check default nginx.conf for configuration reference
+  # but you will need to manually setup the configuration
+  # Check included nginx.conf for reference
   webserver:
     image: nginx:alpine
     restart: unless-stopped
@@ -150,7 +150,7 @@ $ docker compose pull
 $ docker compose up -d
 ```
 
-## Docker Compose &middot; Existing reverse proxy
+## Existing reverse proxy
 
 If you already have a reverse proxy setup, you can exclude the webserver service and adapt the following examples.
 

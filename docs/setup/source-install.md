@@ -5,16 +5,18 @@ Please note, you should be familiar with linux server setup.
 Bar Assistant is made with [Laravel](https://laravel.com), you can check out [default laravel requirements here](https://laravel.com/docs/deployment). A few extra prerequisites are:
 
 - You have `git` installed
-- You have installed PHP >= 8.2 with required extensions:
-    - Imagick Extension
-    - OPCache Extension
-    - Redis Extension
-    - Zip Extension
-    - Sqlite Extension
+- You have installed PHP >= 8.3 with the following extensions:
+    - ffi
+    - opcache
+    - redis
+    - zip
+    - sqlite
+    - bcmath
+    - int
 - You have [Composer](https://getcomposer.org) installed
-- You have Sqlite3 installed
-- You have Redis server instance running
-- (Optional) You have one of the supported [search](https://laravel.com/docs/10.x/scout) servers. (Meilisearch recommended, Algoila and Database should work but not tested thoroughly)
+- You have `sqlite3` installed
+- (Optional) You have Redis server instance running
+- (Optional) You have one of the supported [search](https://laravel.com/docs/scout) servers.
 
 After cloning the repository, do the following:
 
@@ -55,11 +57,20 @@ $ php artisan key:generate
 # Create a database file
 $ touch storage/bar-assistant/database.ba3.sqlite
 
+# To setup the database:
+$ php artisan migrate --force
+
 # To setup correct image paths
 $ php artisan storage:link
 
-# To setup the database:
-$ php artisan migrate --force
+# Setup search engine
+$ php artisan bar:setup-meilisearch
+$ php artisan scout:sync-index-settings
+
+# Warmup cache
+$ php artisan config:cache
+$ php artisan route:cache
+$ php artisan event:cache
 ```
 
 You can now configure your webserver to serve the PHP files from the `public` folder. An [example config with ngnix is available here](https://laravel.com/docs/deployment#nginx).

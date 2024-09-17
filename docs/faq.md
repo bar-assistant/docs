@@ -19,6 +19,18 @@ You can disable `/register` endpoint with environment variable.
 ALLOW_REGISTRATION=false
 ```
 
+## How do I backup my data?
+
+To create a full backup of your data, you can use the CLI commands.
+
+``` bash
+$ docker compose exec bar-assistant php artisan bar:full-backup
+```
+
+This will create a backup file in the volume you mounted. Path to the .zip file should be printed by command.
+
+This is a full "file" backup of your data, which includes the current database file, and the whole uploads directory.
+
 ## How do I update Meilisearch?
 
 ### The easy way

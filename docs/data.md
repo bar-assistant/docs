@@ -5,7 +5,7 @@ hide:
 
 # Data management
 
-We belive that being in control of your data is one of the most important parts of Bar Assistant. That's why we offer several ways to export your data, and we try to document as much as possible so you can easily import that data into another service.
+We belive that being in control of your data is one of the most important parts of Bar Assistant. That's why we offer several ways to export your data, and we try to document exported structure as much as possible so you can easily import that data into another service.
 
 ## Export data types
 
@@ -14,10 +14,11 @@ Here's a quick summary of all data export types. All types have recipes grouped 
 | Type | Description | CLI/API type |
 | --- | --- | --- |
 | Datapack | Exports bar data(1) in JSON format, which you can use to import bar data into another Bar Assistant instance | `datapack` |
-| JSON | Exports all recipes, with recipe being a [valid JSON schema](https://barassistant.app/cocktail-02.schema.json) | `schema` or `json` |
-| Markdown | Exports all recipes, with recipe in Markdown format | `markdown` or `md` |
+| JSON | Exports all recipes, with recipe being a [valid JSON schema](https://barassistant.app/cocktail-02.schema.json) | `json` |
+| Markdown | Exports all recipes, with recipe in Markdown format | `markdown` |
 | XML | Exports all recipes, with recipe in XML format | `xml` |
-| JSON+LD | Exports all recipes, with recipe in [Schema.org Recipe type](https://schema.org/Recipe) | `json+ld` |
+| JSON-LD | Exports all recipes, with recipe in [Schema.org Recipe type](https://schema.org/Recipe) | `json-ld` |
+| YAML | Same structure as JSON, but in YAML format | `yaml` |
 
 (1) Bar data includes cocktails, ingredients, methods, tags, utensils, glass types, ingredient categories, and price categories.
 
