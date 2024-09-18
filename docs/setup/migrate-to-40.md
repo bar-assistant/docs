@@ -15,7 +15,7 @@ There are two possible scenarios, depending on your setup/preferences, you are u
 - Bind mounts are local folders that are mounted from the host machine to container (for example: `./local-folder:/var/www/cocktails/storage/bar-assistant`).
 - Volumes are named volumes managed by docker (for example: `my-named-volume:/var/www/cocktails/storage/bar-assistant`).
 
-### 1(a) Bind mounts
+### 1a. Bind mounts
 
 If you are using bind mounts, you need to make sure that the folder is owned by the user that is running the container, in this case `33:33` (www-data).
 
@@ -28,7 +28,7 @@ $ chown -R 33:33 ./local-folder
 
 If you are using rootless docker this get a bit more complicated. You need to find what the pid and gid of the user inside the container is. And then you need to `chown` the folder to that user. In most cases this will be `100032:100032` but it can vary depending on your docker setup. Learn more about this [here](https://docs.docker.com/engine/security/userns-remap/).
 
-### 1(b) Volumes
+### 1b. Volumes
 
 To change the permissions for bar-assistant folder in a named volume, you need to run the following command:
 
@@ -52,10 +52,9 @@ Update the docker compose file to use the new images:
 
 ``` yaml
 # For bar assistant server
-image: barassistant/server:v4
-
+image: barassistant/server:{++v4++}
 # For salt rim
-image: barassistant/salt-rim:v3
+image: barassistant/salt-rim:{++v3++}
 ```
 
 Then pull and restart the stack:
