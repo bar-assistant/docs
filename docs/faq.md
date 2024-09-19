@@ -46,12 +46,12 @@ This is a full "file" backup of your data, which includes the current database f
 
 ### The easy way
 
-Everytime you restart Bar Assistant container the cocktail and ingredient data gets synced with Meilisearch. So the easiest way to update the Meilisearch is to delete the container and the related volume, and create a new one.
+Everytime you restart Bar Assistant container the cocktail and ingredient data gets synced with Meilisearch. So the easiest way to update the Meilisearch is to delete the container and the related volume, and create a new one. Update your `docker-compose.yml` file with new Meilisearch version, and run the following commands.
 
 ``` bash
 # Stop the container
 $ docker compose stop meilisearch
-# Remove the container and related volume, please check if volume is deleted
+# Remove the container and related volume, double check if volume is deleted
 $ docker compose rm meilisearch -v
 # Pull new images
 $ docker compose pull
@@ -59,11 +59,7 @@ $ docker compose pull
 $ docker compose restart
 ```
 
-Update your `docker-compose.yml` file with new Meilisearch version, and run the stack.
-
-``` bash
-$ docker compose up -d
-```
+If there are any issues, you should try logging out and reselecting the bar, this should update search token for the specific bar.
 
 ### The "proper" way
 
