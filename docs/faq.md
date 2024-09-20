@@ -7,6 +7,17 @@ hide:
 
 Here you can find frequently asked questions and their answers.
 
+## Why do I get "Unable to connect to X API server." on a login page?
+
+This usually means that the client can't reach the API server. There could be a few reasons for this:
+
+- The API server is not running
+    - Restart the API server
+    - Check docker logs for errors
+- The API server is running but your browser can't reach it
+    - Check that the API server is reachable from your browser.
+    - **Example using default setup:** When you visit "http://localhost:3000/bar" you should see: "This is your Bar Assistant instance." message.
+
 ## Why am I missing some features in web app?
 
 Salt Rim uses background workers to power the web frontend and PWA and the browser usually caches files related to this. To verify that you have a cache issue try another browser or your current browser's incognito mode to check out the frontend.
@@ -19,16 +30,28 @@ You can disable `/register` endpoint with environment variable.
 ALLOW_REGISTRATION=false
 ```
 
+## How do I backup my data?
+
+To create a full backup of your data, you can use the CLI commands.
+
+``` bash
+$ docker compose exec bar-assistant php artisan bar:full-backup
+```
+
+This will create a backup file in the volume you mounted. Path to the .zip file should be printed by command.
+
+This is a full "file" backup of your data, which includes the current database file, and the whole uploads directory.
+
 ## How do I update Meilisearch?
 
 ### The easy way
 
-Everytime you restart Bar Assistant container the cocktail and ingredient data gets synced with Meilisearch. So the easiest way to update the Meilisearch is to delete the container and the related volume, and create a new one.
+Everytime you restart Bar Assistant container the cocktail and ingredient data gets synced with Meilisearch. So the easiest way to update the Meilisearch is to delete the container and the related volume, and create a new one. Update your `docker-compose.yml` file with new Meilisearch version, and run the following commands.
 
 ``` bash
 # Stop the container
 $ docker compose stop meilisearch
-# Remove the container and related volume, please check if volume is deleted
+# Remove the container and related volume, double check if volume is deleted
 $ docker compose rm meilisearch -v
 # Pull new images
 $ docker compose pull
@@ -36,11 +59,7 @@ $ docker compose pull
 $ docker compose restart
 ```
 
-Update your `docker-compose.yml` file with new Meilisearch version, and run the stack.
-
-``` bash
-$ docker compose up -d
-```
+If there are any issues, you should try logging out and reselecting the bar, this should update search token for the specific bar.
 
 ### The "proper" way
 

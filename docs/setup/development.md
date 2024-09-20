@@ -13,6 +13,10 @@ $ docker compose exec app php artisan key:generate
 $ docker compose exec app php artisan storage:link
 $ docker compose exec app php artisan migrate
 ```
+5. (Optional) Add bar data
+``` bash
+$ git clone https://github.com/bar-assistant/data.git resources/data
+```
 
 ## Code quality
 

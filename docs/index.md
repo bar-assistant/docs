@@ -49,24 +49,6 @@ With Bar Assistant you can scrape cocktail recipes directly from the given webpa
 
 After you import recipe from the URL you will be presented with all the data that was found. Here you can double-check if everything is correct and keep it in sync with your data. Ingredients will be automatically matched by their name, if the ingredient is not found it will be created. You can also manually match ingredients.
 
-### Import from YAML/JSON
-
-You can import recipes via custom YAML/JSON format, previously exported from another Bar Assistant recipe.
-
-### Import from Bar Assistant collection
-
-You can import a collection of recipes from another Bar Assistant instance.
-
-### Import from .zip (Server)
-
-If you previously exported recipes with `php artisan bar:export-recipes {barId}` command, you can use `php artisan bar:import-zip {path}` command to import those recipes. You will have to provide either an existing bar id or you will have the option to create a new one.
-
-You can also import any .zip file you put in backups folder. Here's an example with docker compose:
-
-1. Move .zip file with recipes into backups folder. This folder should be available to you if you mounted it as volume, inside container its located at `/var/www/cocktails/storage/bar-assistant/backups`.
-2. Run the following command with .zip path relative to mounted storage folder: `docker compose exec app php artisan bar:import-recipes backups/my-recipes.zip`
-3. Follow on screen instructions
-
 ## Recipe collections
 
 You can create a recipe collection in a few ways.
@@ -115,9 +97,8 @@ Bar Assistant allows you to share recipes in a few ways. All actions are availab
 - Print recipe - This shows you print-friendly page with the recipe information
 - Create public link - This will create a public link which you can share with your friends
 - Generate recipe image - Create a recipe image that you can share with your friends
-- Copy as plain text - This will copy recipe information as plain text in your clipboard
-- Copy as JSON/YAML - This will copy recipe in a specific format which you can use to import it into another bar
-- Copy as Markdown - This will copy recipe information in Markdown format
+- Copy as JSON - This will copy recipe in a specific format which you can use to import it into another bar
+- Copy as YAML/XML/Markdown/JSON-LD - This will copy recipe information in selected format
 
 ## User roles
 
@@ -184,16 +165,3 @@ Can only view, favorite and rate recipes and ingredients. Can also create collec
     view: admin, moderator
     edit: admin, moderator
     delete: only user can delete his own account
-
-## Export recipes (Server)
-
-You can export all cocktail recipes from your bar by using the CLI. Running `php artisan bar:export-recipes {barId}` will generate a .zip file with all cocktail recipes, ingredients and images.
-
-1. Find ID of a bar you want to export recipes from. You can use a basic SQL query to find a list of bars, for example: `sqlite3 storage/bar-assistant/database.ba3.sqlite 'SELECT * FROM bars'`. I'll use `31` as example bar id.
-2. If using docker, run `docker compose exec bar-assistant php artisan bar:export-recipes 31`
-3. Follow on-screen instructions
-4. You can find your .zip file in the volume you mounted: `volume/backups/202312021054_recipes.zip`
-
-## Deleting users (Server)
-
-When a user deletes his account, to keep data integrity, all his account data gets anonymized. If you want to completely delete a user you can use the following command: `php artisan bar:delete-user {email}`. This will delete user and all his data, including cocktails, bars and ingredients he created.
