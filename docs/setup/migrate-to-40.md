@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - You are on latest v3.x version.
-- You have [backups of your data](/docs/faq/#how-do-i-backup-my-data).
+- You have [backups of your data](../faq.md#how-do-i-backup-my-data).
 
 
 ## 1. Update folder permissions
@@ -72,4 +72,4 @@ $ docker compose up -d
 
 The following ENV variables are not required anymore, and can be safely removed from your docker-compose file: `LOG_CHANNEL`, `DEFAULT_LOCALE`.
 
-Also, redis is now optional (but recommended) service, check the [installation](/docs/setup) docs for more information.
+Also, redis is now optional (but recommended) service, check the [installation](../index.md) docs for more information.
