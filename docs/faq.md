@@ -22,6 +22,11 @@ This usually means that the client can't reach the API server. There could be a 
 
 Salt Rim uses background workers to power the web frontend and PWA and the browser usually caches files related to this. To verify that you have a cache issue try another browser or your current browser's incognito mode to check out the frontend.
 
+Also, some features require the client to be running in HTTPS context:
+
+- [Copying recipes to clipboard](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard)
+- [Prevent screen locking](https://developer.mozilla.org/en-US/docs/Web/API/Screen_Wake_Lock_API)
+
 ## How do I disable user registrations?
 
 You can disable `/register` endpoint with environment variable.

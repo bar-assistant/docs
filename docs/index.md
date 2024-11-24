@@ -120,48 +120,66 @@ Can manage cocktails and ingredients.
 
 Can only view, favorite and rate recipes and ingredients. Can also create collections.
 
+**Bar owner**
+
+User that created the bar.
+
+**Bar member**
+
+User that has any membership in the bar.
+
 !!! warning
 
     Keep in mind that the user that created the bar can delete it at any point (independent of the role he has). Deleting the bar also deletes all the recipes and ingredients that members added.
 
-### Role breakdown
+### Bar
 
-**Bar:**
+| Action | Allowed roles |
+| --- | --- |
+| Create | Anyone registered |
+| View | Bar members |
+| Edit | Bar owner, admin |
+| Delete | Bar owner |
+| Remove members | Bar owner, admin |
+| Active/Deactivate | Bar owner |
+| Create exports | Bar owner |
+| Manage bar shelf | Bar owner, admin, moderator |
 
-    create: anyone
-    view: bar members
-    edit: bar owner, admin
-    delete: bar owner
-    create: anyone
-    remove members: bar owner, admin
+### Methods, Tags, Utensils, Ingredient categories, Glass types, Price categories
 
-**Methods, Tags, Utensils, Ingredient categories, Glass types:**
+| Action | Allowed roles |
+| --- | --- |
+| Create | Admin, moderator |
+| View | Bar members |
+| Edit | Admin, moderator |
+| Delete | Admin, moderator |
 
-    create: admin, moderator
-    view: bar members
-    edit: admin, moderator
-    delete: admin, moderator
+### Cocktails
 
-**Cocktails:**
+| Action | Allowed roles |
+| --- | --- |
+| Create | Admin, moderator, general |
+| View | Bar members |
+| Edit | Cocktail author, admin, moderator |
+| Delete | Cocktail author, admin, moderator |
+| Create public link | Cocktail author, admin, moderator |
+| Rate | Bar members |
+| Add notes | Bar members |
 
-    create: admin, moderator, general
-    view: bar members
-    edit: author, admin, moderator
-    delete: author, admin, moderator
-    create public link: author, admin, moderator
-    rate: bar members
-    add notes: bar members
+### Ingredients
 
-**Ingredients:**
+| Action | Allowed roles |
+| --- | --- |
+| Create | Admin, moderator, general |
+| View | Bar members |
+| Edit | Cocktail author, admin, moderator |
+| Delete | Cocktail author, admin, moderator |
 
-    create: admin, moderator, general
-    view: bar members
-    edit: author, admin, moderator
-    delete: author, admin, moderator
+### Users
 
-**Users:**
-
-    create: admin, moderator
-    view: admin, moderator
-    edit: admin, moderator
-    delete: only user can delete his own account
+| Action | Allowed roles |
+| --- | --- |
+| Create | Admin, moderator |
+| View | Admin, moderator |
+| Edit | Admin, moderator |
+| Delete | User can delete his own account |
