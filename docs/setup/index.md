@@ -150,13 +150,37 @@ $ docker compose pull
 $ docker compose up -d
 ```
 
-## Existing reverse proxy
+## More reverse proxy examples
 
 If you already have a reverse proxy setup, you can exclude the webserver service and adapt the following examples.
 
+### Setup with custom subdomain
+
+Here's an example of how to setup Bar Assistant on `bar.mydomain.com` with your existing nginx as a reverse proxy. In your existing nginx config, add another server block like the following.
+
+```nginx title="nginx.conf"
+# This assumes that your proxy service is capable of resolving the container hostnames
+server {
+    server_name bar.mydomain.com;
+
+    location /bar/ {
+        proxy_pass http://bar-assistant:8080/;
+    }
+
+    location /search/ {
+        proxy_pass http://meilisearch:7700/;
+    }
+
+    location / {
+        proxy_pass http://salt-rim:8080/;
+    }
+}
+```
+
+### Nginx config example with multiple subdomains
+
 Here's an example similar to our cloud instance setup, where Bar Assistant API is exposed on api subdomain and Meilisearch on search subdomain.
 
-### Nginx config example
 ```nginx title="nginx.conf"
 # This assumes that your proxy service is capable of resolving the container hostnames
 server {
@@ -182,7 +206,7 @@ server {
 }
 ```
 
-## Caddy config example
+### Caddy config example
 
 This is an example of Caddyfile for default configuration.
 
