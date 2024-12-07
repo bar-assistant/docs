@@ -33,6 +33,7 @@ Client search tokens are generated from API key provided by Meilisearch. If you 
 
 1. Force update search tokens for all bars: `docker compose exec bar-assistant php artisan bar:setup-meilisearch -f`.
 2. Sign out of the salt-rim client and sign back in.
+3. Go to bars page and re-select your bar.
 
 ## How do I disable user registrations?
 
