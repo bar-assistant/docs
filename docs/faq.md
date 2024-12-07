@@ -27,6 +27,13 @@ Also, some features require the client to be running in HTTPS context:
 - [Copying recipes to clipboard](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard)
 - [Prevent screen locking](https://developer.mozilla.org/en-US/docs/Web/API/Screen_Wake_Lock_API)
 
+## Why is my site search / ingredient search not working?
+
+Client search tokens are generated from API key provided by Meilisearch. If you did some changes to the Meilisearch configuration, it's possible that the tokens are outdated. To get the fresh tokens follow the steps below:
+
+1. Force update search tokens for all bars: `docker compose exec bar-assistant php artisan bar:setup-meilisearch -f`.
+2. Sign out of the salt-rim client and sign back in.
+
 ## How do I disable user registrations?
 
 You can disable `/register` endpoint with environment variable.
