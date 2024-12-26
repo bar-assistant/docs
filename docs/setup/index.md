@@ -25,9 +25,11 @@ MEILI_MASTER_KEY=masterKey-make-it-long-for-security
 BASE_URL=http://localhost:3000
 
 # Meilisearch server instance URL, change if you are using different host from base url, otherwise leave as default
+# Must be accessible from your browser
 MEILISEARCH_URL=${BASE_URL}/search
 
 # Bar Assistant server instance URL, change if you are using different host from base url, otherwise leave as default
+# Must be accessible from your browser
 API_URL=${BASE_URL}/bar
 ```
 
@@ -109,6 +111,7 @@ services:
     restart: unless-stopped
 
   # Reverse proxy all web services
+  # API, Salt-Rim and Meilisearch containers must be accesible from your browser
   # You can remove this service if you already have a reverse proxy somewhere in your stack,
   # but you will need to manually setup the configuration
   # Check included nginx.conf for reference
