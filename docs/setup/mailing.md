@@ -28,6 +28,12 @@ MAIL_USERNAME=mailuser
 MAIL_PASSWORD=mailpassword
 ```
 
+And the following ENV variables on salt-rim:
+
+```properties title="Salt Rim client .env"
+MAILS_ENABLED=true
+```
+
 The rest of the variables that are related are the following:
 
 - `MAIL_REQUIRE_CONFIRMATION=true` - Enabling this will require users to confirm email before being able to authenticate. (Default: `false`).
