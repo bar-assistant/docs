@@ -66,7 +66,7 @@ bar-assistant:
 
 !!! warning
 
-    Your redirect URI must be accessible from your browser. If you're using Salt Rim, set it to `{your-domain}/oauth/callback`.
+    If you're using Salt Rim, set it to `{your-bar-domain}/oauth/callback`.
 
 ## SSO Management
 

@@ -142,6 +142,15 @@ Please, note that it can sometimes take a minute or more (depending on the hardw
 
 Before you login you need to create a new user, you can do that by clicking register button.
 
+## Container images
+
+Bar Assistant is available as a Docker image on [Docker Hub](https://hub.docker.com/r/barassistant/server) and [GitHub Container Registry](https://github.com/karlomikus/bar-assistant/pkgs/container/barassistant). There is no `latest` tag, so you need to specify version in the tag. For example:
+
+- `barassistant/server:v4.4.1` - This will pull the exact version
+- `barassistant/server:v4.4` - This will pull the latest minor release
+- `barassistant/server:v4` - This will pull the latest major release
+- `barassistant/server:dev` - This will pull the latest development release (unstable)
+
 ## Updating
 
 You can update by pulling the newest images and restarting the stack.

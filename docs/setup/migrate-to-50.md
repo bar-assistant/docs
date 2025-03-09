@@ -8,7 +8,7 @@
 If you are using docker this process is simple. This version does not require any major changes to your docker-compose file.
 
 ``` yaml
-# For bar assistant server
+# Bump your bar assistant image version
 image: barassistant/server:v5
 ```
 
