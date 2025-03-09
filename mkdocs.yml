@@ -43,10 +43,12 @@ nav:
     - 'setup/index.md'
     - 'setup/source-install.md'
     - 'setup/mailing.md'
+    - 'setup/sso.md'
     - 'setup/development.md'
     - 'setup/migrate-to-15.md'
     - 'setup/migrate-to-30.md'
     - 'setup/migrate-to-40.md'
+    - 'setup/migrate-to-50.md'
   - 'data.md'
   - 'faq.md'
   - "OpenAPI Spec": https://api.barassistant.app/docs
