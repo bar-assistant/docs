@@ -10,6 +10,8 @@ If you are using docker this process is simple. This version does not require an
 ``` yaml
 # Bump your bar assistant image version
 image: barassistant/server:v5
+# Bump your salt-rim image version
+image: barassistant/salt-rim:v4
 ```
 
 Then pull and restart the stack:
