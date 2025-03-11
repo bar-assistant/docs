@@ -69,7 +69,7 @@ volumes:
 
 services:
   meilisearch:
-    image: getmeili/meilisearch:v1.8 # Never use latest tag
+    image: getmeili/meilisearch:v1.12 # Never use latest tag
     environment:
       - MEILI_MASTER_KEY=$MEILI_MASTER_KEY
       - MEILI_ENV=production
@@ -85,7 +85,7 @@ services:
     restart: unless-stopped
 
   bar-assistant:
-    image: barassistant/server:v4
+    image: barassistant/server:v5
     depends_on:
       - meilisearch
       - redis # Remove if not using redis
