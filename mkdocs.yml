@@ -52,6 +52,8 @@ nav:
   - 'data.md'
   - 'faq.md'
   - "OpenAPI Spec": https://api.barassistant.app/docs
+  - "API Changelog": https://github.com/karlomikus/bar-assistant/blob/develop/CHANGELOG.md
+  - "Web client Changelog": https://github.com/karlomikus/vue-salt-rim/blob/develop/CHANGELOG.md
 
 extra:
   analytics:

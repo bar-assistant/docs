@@ -144,7 +144,7 @@ Before you login you need to create a new user, you can do that by clicking regi
 
 ## Container images
 
-Bar Assistant is available as a Docker image on [Docker Hub](https://hub.docker.com/r/barassistant/server) and [GitHub Container Registry](https://github.com/karlomikus/bar-assistant/pkgs/container/barassistant). There is no `latest` tag, so you need to specify version in the tag. For example:
+Bar Assistant is available as a Docker image on [Docker Hub](https://hub.docker.com/u/barassistant) and [GitHub Container Registry](https://github.com/karlomikus?tab=packages). There is no `latest` tag, so you need to specify version in the tag. For example:
 
 - `barassistant/server:v4.4.1` - This will pull the exact version
 - `barassistant/server:v4.4` - This will pull the latest minor release
@@ -226,7 +226,7 @@ This is an example of Caddyfile for default configuration.
 # This assumes that your proxy service is capable of resolving the container hostnames
 mydomain.com {
     handle_path /bar/* {
-        reverse_proxy bar-assistant:3000
+        reverse_proxy bar-assistant:8080
     }
 
     handle_path /search/* {
