@@ -29,11 +29,16 @@ Also, some features require the client to be running in HTTPS context:
 
 ## Why is my site search / ingredient search not working?
 
-Client search tokens are generated from API key provided by Meilisearch. If you did some changes to the Meilisearch configuration, it's possible that the tokens are outdated. To get the fresh tokens follow the steps below:
+In general two things can happen, usually after updating Meilisearch, tokens are out of date, or indexes are empty.
+
+Client search tokens are generated from API key provided by Meilisearch. To get the fresh tokens follow the steps below:
 
 1. Force update search tokens for all bars: `docker compose exec bar-assistant php artisan bar:setup-meilisearch -f`.
 2. Sign out of the salt-rim client and sign back in.
-3. Go to bars page and re-select your bar.
+3. Sync search indexes:
+    - To sync a single bar, go to bars, click edit bar, then click `Optimize bar`
+    - To sync all bars, run `docker compose exec bar-assistant php artisan bar:refresh-search`
+4. Reselect your bar, and check if the search is working
 
 ## How do I disable user registrations?
 
