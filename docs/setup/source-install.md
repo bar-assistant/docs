@@ -54,9 +54,6 @@ $ composer install
 # Generate a key
 $ php artisan key:generate
 
-# Create a database file
-$ touch storage/bar-assistant/database.ba3.sqlite
-
 # To setup the database:
 $ php artisan migrate --force
 
@@ -71,6 +68,9 @@ $ php artisan scout:sync-index-settings
 $ php artisan config:cache
 $ php artisan route:cache
 $ php artisan event:cache
+
+# Sync base recipes
+$ git clone --depth 1 --branch v5 https://github.com/bar-assistant/data.git resources/data
 ```
 
 You can now configure your webserver to serve the PHP files from the `public` folder. An [example config with ngnix is available here](https://laravel.com/docs/deployment#nginx).
