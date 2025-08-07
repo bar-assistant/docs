@@ -10,6 +10,7 @@ Bar Assistant currently supports the following SSO providers:
 - Authelia
 - Authentik
 - Keycloak
+- PocketId
 
 More SSO providers can be implmented by opening a [GitHub issue](https://github.com/karlomikus/bar-assistant/issues).
 
@@ -45,12 +46,18 @@ AUTHELIA_CLIENT_ID=
 AUTHELIA_CLIENT_SECRET=
 AUTHELIA_REDIRECT_URI=
 
-# # To enable Keycloak set the following:
+# To enable Keycloak set the following:
 KEYCLOAK_CLIENT_ID=
 KEYCLOAK_CLIENT_SECRET=
 KEYCLOAK_REDIRECT_URI=
 KEYCLOAK_BASE_URL=
 KEYCLOAK_REALM=
+
+# To enable PocketId set the following:
+POCKETID_BASE_URL=
+POCKETID_CLIENT_ID=
+POCKETID_CLIENT_SECRET=
+POCKETID_REDIRECT_URI=
 ```
 
 Here's an example of how to enable Authentik SSO:
