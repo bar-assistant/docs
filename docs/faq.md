@@ -105,9 +105,21 @@ Some of Bar Assistant community members are hosting their recipe databases:
 - [zhdenny/bar_assistant_database](https://github.com/zhdenny/bar_assistant_database)
 - [bar-assistant/data](https://github.com/bar-assistant/data)
 
-Or you can visit some of sites that Bar Assistant can import recipes from:
+Or you can visit some of sites that Bar Assistant can import recipes from. The following sites are officially supported. For unsupported sites, we fallback to Schema.org structured data which most of the recipe websites support.
 
 - [PunchDrink](https://punchdrink.com/)
 - [Imbibe](https://imbibemagazine.com/)
 - [Liquor.com](https://www.liquor.com/)
 - [CocktailParty](https://cocktailpartyapp.com/)
+- [CocktailExplorer](https://www.cocktailexplorer.co/)
+- [CocktailsDistilled](https://cocktailsdistilled.com)
+- [CraftedPour](https://craftedpour.com)
+- [DiffordsGuide](https://www.diffordsguide.com)
+- [EricsCocktailGuide](https://www.ericscocktailguide.com)
+- [HausAlpenz](https://alpenz.com)
+- [KindredCocktails](https://kindredcocktails.com)
+- [LiberAndCo](https://www.liberandcompany.com)
+- [MakeMeACocktail](https://makemeacocktail.com)
+- [SteveTheBartender](https://stevethebartender.com)
+- [TheCocktailDB](https://www.thecocktaildb.com)
+- [TuxedoNo2](https://tuxedono2.com)
