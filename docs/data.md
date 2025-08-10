@@ -5,7 +5,7 @@ hide:
 
 # Data management
 
-We belive that being in control of your data is one of the most important parts of Bar Assistant. That's why we offer several ways to export your data, and we try to document exported structure as much as possible so you can easily import that data into another service.
+Being in control of your data is one of the most important parts of Bar Assistant. That's why there are several ways to export your data into human and machine readable formats.
 
 ## Export data types
 

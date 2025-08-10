@@ -15,14 +15,12 @@ Bar Assistant is made with [Laravel](https://laravel.com), you can check out [de
     - int
 - You have [Composer](https://getcomposer.org) installed
 - You have `sqlite3` installed
+- You have meilisearch running somewhere.
 - (Optional) You have Redis server instance running
-- (Optional) You have one of the supported [search](https://laravel.com/docs/scout) servers.
 
-After cloning the repository, do the following:
+### 1. Setup the API
 
-### 1. Setup your environment variables
-
-Create `.env` file.
+Clone the [bar-assistant](https://github.com/karlomikus/bar-assistant) repository and create `.env` file.
 
 ``` bash
 $ cp .env.dist .env
@@ -50,27 +48,35 @@ $ composer install
 
 ### 3. Setup the rest of the application
 
+Now you should be able to use `artisan` commands to setup the rest of the application.
+
 ``` bash
 # Generate a key
-$ php artisan key:generate
+php artisan key:generate
 
 # To setup the database:
-$ php artisan migrate --force
+php artisan migrate --force
 
 # To setup correct image paths
-$ php artisan storage:link
+php artisan storage:link
+
+# Clear config cache so new ENV settings get picked up
+php artisan config:clear
 
 # Setup search engine
-$ php artisan bar:setup-meilisearch
-$ php artisan scout:sync-index-settings
+php artisan bar:setup-meilisearch
+php artisan scout:sync-index-settings
 
 # Warmup cache
-$ php artisan config:cache
-$ php artisan route:cache
-$ php artisan event:cache
+php artisan config:cache
+php artisan route:cache
+php artisan event:cache
+
+# Clear expired tokens
+php artisan sanctum:prune-expired --hours=24
 
 # Sync base recipes
-$ git clone --depth 1 --branch v5 https://github.com/bar-assistant/data.git resources/data
+git clone --depth 1 --branch v5 https://github.com/bar-assistant/data.git resources/data
 ```
 
 You can now configure your webserver to serve the PHP files from the `public` folder. An [example config with ngnix is available here](https://laravel.com/docs/deployment#nginx).
