@@ -1,66 +1,35 @@
 # Installation (Docker)
 
-This is recommended way of installation. This will get you running with the following services:
+This is recommended way of installation. This will get you running with the following services on your localhost:
 
 - Bar Assistant API server
 - Salt Rim web client
 - Meilisearch service for searching and filtering
 - Optional Redis service for caching and sessions
-- Optional web server used as a reverse proxy
 
-## Docker Compose &middot; Nginx
+## Docker Compose
 
 Docker compose example repository [can be found here](https://github.com/bar-assistant/docker/).
 
-Docker Compose setup requires a few setup files. First, create the `.env` file and `nginx.conf` files. The .env file will contain your basic configuration variables.
+### Step 1: Create required files
+
+Docker Compose setup requires a few setup files. First, create the `.env` file and `docker-compose.yml` files. The .env file will contain your basic configuration variables.
 
 ```properties title=".env"
-# Your Meilisearch master key
-# Find out more here: https://docs.meilisearch.com/learn/getting_started/quick_start.html#securing-meilisearch
+# Your Meilisearch master key (https://docs.meilisearch.com/learn/getting_started/quick_start.html#securing-meilisearch)
 MEILI_MASTER_KEY=masterKey-make-it-long-for-security
 
-# Base URL of the application
-# You should update this value to the URL you plan to use (ex: http://192.168.100.100, https://my-personal-bar.com)
-# The value MUST be without trailing slash
-BASE_URL=http://localhost:3000
+# Web client URL
+BASE_URL=http://localhost:8080
 
-# Meilisearch server instance URL, change if you are using different host from base url, otherwise leave as default
-# Must be accessible from your browser
-MEILISEARCH_URL=${BASE_URL}/search
+# Meilisearch server instance URL
+MEILISEARCH_URL=http://localhost:8081
 
-# Bar Assistant server instance URL, change if you are using different host from base url, otherwise leave as default
-# Must be accessible from your browser
-API_URL=${BASE_URL}/bar
+# Bar Assistant server instance URL
+API_URL=http://localhost:8082
 ```
 
-And here are the contents of nginx configuration. In short, this exposes the Bar Assistant API server on `example.com/bar/` path, Meilisearch on `example.com/search/` and frontend client on `example.com`.
-
-```nginx title="nginx.conf"
-server {
-    listen 3000 default_server;
-    listen [::]:3000 default_server;
-    server_name _;
-
-    location = /favicon.ico { access_log off; log_not_found off; }
-    location = /robots.txt  { access_log off; log_not_found off; }
-
-    client_max_body_size 100M;
-
-    location /bar/ {
-        proxy_pass http://bar-assistant:8080/;
-    }
-
-    location /search/ {
-        proxy_pass http://meilisearch:7700/;
-    }
-
-    location / {
-        proxy_pass http://salt-rim:8080/;
-    }
-}
-```
-
-Then create `docker-compose.yml` file with the following contents.
+Then in your `docker-compose.yml` copy and paste the following.
 
 ```yaml title="docker-compose.yml"
 volumes:
@@ -69,7 +38,7 @@ volumes:
 
 services:
   meilisearch:
-    image: getmeili/meilisearch:v1.12 # Never use latest tag
+    image: getmeili/meilisearch:v1.15 # Never use latest tag
     environment:
       - MEILI_NO_ANALYTICS=true
       - MEILI_MASTER_KEY=$MEILI_MASTER_KEY
@@ -77,6 +46,8 @@ services:
     restart: unless-stopped
     volumes:
       - meilisearch_data:/meili_data
+    ports:
+      - "8081:7700"
 
   # Optional, but recommended
   redis:
@@ -93,12 +64,14 @@ services:
     environment:
       - APP_URL=$API_URL
       - MEILISEARCH_KEY=$MEILI_MASTER_KEY
-      - MEILISEARCH_HOST=http://meilisearch:7700 # This needs to be host that can be resolved from inside the container.
+      - MEILISEARCH_HOST=http://meilisearch:7700
       - REDIS_HOST=redis # Remove if not using redis
       - CACHE_DRIVER=redis # Change to "file" if not using redis
       - SESSION_DRIVER=redis # Change to "file" if not using redis
       - ALLOW_REGISTRATION=true
     restart: unless-stopped
+    ports:
+      - "8082:8080"
     volumes:
       - bar_data:/var/www/cocktails/storage/bar-assistant
 
@@ -110,23 +83,8 @@ services:
       - API_URL=$API_URL
       - MEILISEARCH_URL=$MEILISEARCH_URL
     restart: unless-stopped
-
-  # Reverse proxy all web services
-  # API, Salt-Rim and Meilisearch containers must be accesible from your browser
-  # You can remove this service if you already have a reverse proxy somewhere in your stack,
-  # but you will need to manually setup the configuration
-  # Check included nginx.conf for reference
-  webserver:
-    image: nginx:alpine
-    restart: unless-stopped
-    depends_on:
-      - bar-assistant
-      - salt-rim
-      - meilisearch
     ports:
-      - 3000:3000
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - "8080:8080"
 ```
 
 !!! info
@@ -137,7 +95,9 @@ services:
 
     If you are using rootless docker and want to use bind mounts, you will need to manually set the correct user permissions on your host folder. In most cases this will be `100032:100032` but it can vary depending on your docker setup. Learn more about this [here](https://docs.docker.com/engine/security/userns-remap/).
 
-You can put all those files in a single directory, and run everything with `docker compose up -d`. You can now access the application on URL and port that you defined. By default this will be [localhost:3000](http://localhost:3000).
+### Step 2: Run the stack
+
+Once you have all those files in a directory, you can run everything with `docker compose up -d`. After everything is up and running you can now access the browser client on URL and port that you defined. By default this will be [localhost:8080](http://localhost:8080).
 
 Please, note that it can sometimes take a minute or more (depending on the hardware) for the server to start. You can check your docker logs (`$ docker compose logs bar-assistant`) for "Application ready" message.
 
@@ -150,7 +110,7 @@ Bar Assistant is available as a Docker image on [Docker Hub](https://hub.docker.
 - `barassistant/server:v4.4.1` - This will pull the exact version
 - `barassistant/server:v4.4` - This will pull the latest minor release
 - `barassistant/server:v4` - This will pull the latest major release
-- `barassistant/server:dev` - This will pull the latest development release (unstable)
+- `barassistant/server:dev` - This will pull the latest development release (unstable and not recommended)
 
 ## Updating
 
@@ -163,13 +123,13 @@ $ docker compose pull
 $ docker compose up -d
 ```
 
-## More reverse proxy examples
+## Reverse proxy configuration
 
-If you already have a reverse proxy setup, you can exclude the webserver service and adapt the following examples.
+Currently the setup requires that you proxy 3 services. This can be done with Nginx, Caddy, or any other reverse proxy server. Don't forget to update your `.env` file with the correct URLs.
 
-### Setup with custom subdomain
+### Nginx config example with subfolders
 
-Here's an example of how to setup Bar Assistant on `bar.mydomain.com` with your existing nginx as a reverse proxy. In your existing nginx config, add another server block like the following.
+Here's an example of how to setup nginx configuration that will expose the services as subfolders of your domain. This is useful if you want to run multiple services on the same domain.
 
 ```nginx title="nginx.conf"
 # This assumes that your proxy service is capable of resolving the container hostnames
@@ -190,9 +150,9 @@ server {
 }
 ```
 
-### Nginx config example with multiple subdomains
+### Nginx config example with subdomains
 
-Here's an example similar to our cloud instance setup, where Bar Assistant API is exposed on api subdomain and Meilisearch on search subdomain.
+Here's an example of how to setup nginx configuration that will expose the services as subdomains of your domain. This is useful if you want to run each service on a separate subdomain.
 
 ```nginx title="nginx.conf"
 # This assumes that your proxy service is capable of resolving the container hostnames
@@ -219,23 +179,19 @@ server {
 }
 ```
 
-### Caddy config example
+### Caddy config example with subdomains
 
-This is an example of Caddyfile for default configuration.
+This is an example of Caddyfile configuration that will expose the services as subdomains of your domain. Caddy is a modern web server that automatically handles HTTPS for you.
 
 ``` caddyfile title="Caddyfile"
 # This assumes that your proxy service is capable of resolving the container hostnames
-mydomain.com {
-    handle_path /bar/* {
-        reverse_proxy bar-assistant:8080
-    }
-
-    handle_path /search/* {
-        reverse_proxy meilisearch:7700
-    }
-
-    handle_path /* {
-        reverse_proxy salt-rim:8080
-    }
+api.example.com {
+    reverse_proxy bar-assistant:8080
+}
+search.example.com {
+    reverse_proxy meilisearch:7700
+}
+my-bar.example.com {
+    reverse_proxy salt-rim:8080
 }
 ```
