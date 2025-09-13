@@ -19,9 +19,6 @@ Docker Compose setup requires a few setup files. First, create the `.env` file a
 # Your Meilisearch master key (https://docs.meilisearch.com/learn/getting_started/quick_start.html#securing-meilisearch)
 MEILI_MASTER_KEY=masterKey-make-it-long-for-security
 
-# Web client URL
-BASE_URL=http://localhost:8080
-
 # Meilisearch server instance URL
 MEILISEARCH_URL=http://localhost:8081
 
