@@ -15,7 +15,7 @@ Visit [setup page](setup/index.md) to view installation steps.
 
 <!-- ![Screenshot](assets/screenshots/bar-create.png){ align=left } -->
 
-When you create a new bar, you can choose to start a bar with cocktails and ingredients already included. All that initial data is managed in a separate repository and pulled when building a docker image. You can view and contribute to that data via the [Bar Assistant Public Data repository](https://github.com/bar-assistant/data).
+When you create a new bar, you can choose to start a bar with cocktails and ingredients already included. All that initial data is managed in a separate repository and pulled when building a docker image. You can view and contribute to that data via the [Bar Assistant Public Data repository](https://github.com/bar-assistant/data). Standard recipe repository usually gets updates with new recipes, to pull new recipes you can go to: "Bars" -> "Edit bar" and click on "Synchronize data".
 
 ## Showing what recipes you can make
 
