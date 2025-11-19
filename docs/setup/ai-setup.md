@@ -19,6 +19,10 @@ To use AI features in Salt Rim, you need to set up an AI provider. Currently the
 
 Unsupported providers will fallback to openai compatibile API.
 
+!!! warning
+
+    Keep in mind that the AI integration setup is currently client side only and will be available to all accounts. We recommend that you only enable AI features if your are self hosting on your local network.
+
 To enable AI integration, you need to setup **salt-rim** environment variables. Here's an example of how to set them up in a default compose file:
 
 ```yaml title="docker-compose.yml"
