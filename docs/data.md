@@ -65,7 +65,7 @@ If you are using Salt Rim, you can use the Exports page in the settings.
 
 ### Import from datapack .zip (Server)
 
-If you previously exported recipes with `php artisan bar:export-recipes {barId}` command, you can use `php artisan bar:import-zip {path}` command to import those recipes. You will have to provide either an existing bar id or you will have the option to create a new one.
+If you previously exported recipes with `php artisan bar:export-recipes {barId}` command, you can use `php artisan bar:import-recipes {path}` command to import those recipes. You will have to provide either an existing bar id or you will have the option to create a new one.
 
 You can also import any .zip file you put in backups folder. Here's an example with docker compose:
 
