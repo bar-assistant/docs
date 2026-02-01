@@ -46,7 +46,7 @@ nav:
     - "Configration":
       - 'setup/mailing.md'
       - 'setup/sso.md'
-      - 'setup/ai-setup.md'
+      - 'setup/ai-setup-backend.md'
     - "Migration":
       - 'setup/migrate-to-50.md'
       - 'setup/migrate-to-40.md'
