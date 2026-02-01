@@ -17,11 +17,17 @@ Visit [setup page](setup/index.md) to view installation steps.
 
 When you create a new bar, you can choose to start a bar with cocktails and ingredients already included. All that initial data is managed in a separate repository and pulled when building a docker image. You can view and contribute to that data via the [Bar Assistant Public Data repository](https://github.com/bar-assistant/data). Standard recipe repository usually gets updates with new recipes, to pull new recipes you can go to: "Bars" -> "Edit bar" and click on "Synchronize data".
 
+## Managing ingredients
+
+You can manage all ingredients via the "Ingredients" page. Any ingredient that you create can be added as a child ingredient to another ingredient. This way you can create a hierarchy of ingredients that can be used for matching ingredients in cocktail recipes. So for example if you have "Lemon Juice" as a child ingredient of "Citrus Juice", any cocktail that requires "Citrus Juice" will match "Lemon Juice" as well.
+
+You can also create "Complex ingredients" which are ingredients made up of other ingredients. For example "Simple Syrup" can be made up of "Sugar" and "Water", so when you add "Sugar" and "Water" to your shelf you will be able to make cocktails that require "Simple Syrup".
+
 ## Showing what recipes you can make
 
-<!-- ![Shelf cocktails](assets/screenshots/shelf-cocktails.png){ align=left } -->
+All cocktails that you can make and ingredients that you have are managed via "Shelf". To see what recipes you can make you need to add all ingredients that you have to your shelf. There are two shelf variants that you can match ingredients against. The "Bar shelf" is shared among all bar members and managed by bar admins/moderators. The "Personal shelf" is only for you and you can manage it yourself.
 
-All cocktails that you can make and ingredients that you have are managed via "Shelf". To see what recipes you can make you need to add all ingredients that you have to your shelf.
+To add ingredients to your shelf follow these steps:
 
 1. Go to "Ingredients" page
 2. Search or create an ingredient that you want to add to your shelf
@@ -34,8 +40,8 @@ All cocktails that you can make and ingredients that you have are managed via "S
 You can increase your available cocktail recipes in a few ways.
 
 - You can edit cocktail recipes to include substitutes for specific ingredients. So if you have any of the substitute ingredients they will show up in your shelf.
-- Use the "Optional" checkbox for specific ingredients. These cocktail ingredients will be ignored when matching your shelf ingredients.
-- Enable "Track parent ingredient as a substitute ingredient in your shelf" in your profile. You can edit a specific ingredient to be a parent of some generic ingredient. This will match all ingredients that are related, for example, if "Scotch Whiskey" is a child ingredient of "Whiskey", it will try to match both of them.
+- Enabling "Make this ingredient optional" on specific ingredient in cocktail recipe will make that ingredient not required for matching. This way you can make cocktails even if you are missing some ingredients.
+- Enabling "Use this specific ingredient" will make sure that only that specific ingredient is used for matching and any variants or child ingredients will be ignored.
 
 ## Adding recipes
 

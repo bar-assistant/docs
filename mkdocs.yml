@@ -39,7 +39,6 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
 nav:
-  - index.md
   - Setup:
     - 'setup/index.md'
     - 'setup/source-install.md'
@@ -53,6 +52,7 @@ nav:
       - 'setup/migrate-to-40.md'
       - 'setup/migrate-to-30.md'
       - 'setup/migrate-to-15.md'
+  - index.md
   - 'data.md'
   - 'faq.md'
   - "OpenAPI Spec": https://api.barassistant.app/docs
