@@ -3,6 +3,7 @@
 Since version v5.13.0 Bar Assistant API supports AI integration using different AI providers (Anthropic, DeepSeek, Gemini, Mistral, Ollama, OpenAI, XAI).
 
 Enabling AI integration unlocks the following features:
+
 - Automatic tag suggestions for cocktail recipes. This feature is available when updating an existing recipe.
 - Automatic ingredient details autocomplete based on ingredient name. This feature is available when you write at least the first 3 letters of the ingredient name.
 - Extracting recipe instructions from unstructured text input.
