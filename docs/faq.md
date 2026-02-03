@@ -18,6 +18,16 @@ This usually means that the client can't reach the API server. There could be a 
     - Check that the API server is reachable from your browser.
     - **Example using default setup:** When you visit "http://localhost:3000/bar" you should see: "This is your Bar Assistant instance." message.
 
+## Why do I get "Resource not found" error when accessing Bar Assistant through a reverse proxy?
+
+If you see `{"type":"api_error","message":"Resource not found."}` when accessing paths like `/bar/docs` or `/bar/api/server/version`, this usually means your reverse proxy is forwarding the full path including the prefix instead of stripping it.
+
+The application expects requests without the path prefix. For example:
+- ❌ Incorrect: Request to `/bar/api/server/version` forwarded as `/bar/api/server/version`
+- ✅ Correct: Request to `/bar/api/server/version` forwarded as `/api/server/version`
+
+See the [Reverse proxy configuration](setup/index.md#reverse-proxy-configuration) section for detailed setup instructions including examples for Nginx, Traefik, and Caddy.
+
 ## Why am I missing some features in web app?
 
 Salt Rim uses background workers to power the web frontend and PWA and the browser usually caches files related to this. To verify that you have a cache issue try another browser or your current browser's incognito mode to check out the frontend.

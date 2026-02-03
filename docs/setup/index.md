@@ -122,7 +122,17 @@ $ docker compose up -d
 
 ## Reverse proxy configuration
 
-Currently the setup requires that you proxy 3 services. This can be done with Nginx, Caddy, or any other reverse proxy server. Don't forget to update your `.env` file with the correct URLs.
+Currently the recommended setup requires that you proxy 3 services. This can be done with Nginx, Caddy, Traefik, or any other reverse proxy server. Don't forget to update your `.env` file with the correct URLs.
+
+!!! warning "Path Prefix Stripping Required"
+    
+    When serving Bar Assistant under a subfolder (e.g., `/bar`), your reverse proxy **must strip the path prefix** before forwarding requests to the application. Otherwise, you'll receive "Resource not found" errors.
+    
+    For example, a request to `https://yourdomain.com/bar/api/server/version` should be forwarded to `http://bar-assistant:8080/api/server/version` (not `/bar/api/server/version`).
+    
+    - **Nginx**: Handles this automatically with the trailing slash syntax (`location /bar/` → `proxy_pass http://backend/;`)
+    - **Traefik**: Requires explicit `stripPrefix` middleware
+    - **Caddy**: Requires `uri strip_prefix` directive when using subfolders
 
 ### Nginx config example with subfolders
 
@@ -134,10 +144,13 @@ server {
     server_name bar.mydomain.com;
 
     location /bar/ {
+        # The trailing slashes cause Nginx to automatically strip the /bar prefix
+        # Request to /bar/api/version → forwarded as /api/version
         proxy_pass http://bar-assistant:8080/;
     }
 
     location /search/ {
+        # Similarly, /search/indexes → forwarded as /indexes
         proxy_pass http://meilisearch:7700/;
     }
 
@@ -192,3 +205,91 @@ my-bar.example.com {
     reverse_proxy salt-rim:8080
 }
 ```
+
+### Traefik config example with subfolders
+
+Here's an example of how to configure Traefik using Docker labels to expose the services as subfolders. Note the required `stripPrefix` middleware for the Bar Assistant and Meilisearch services.
+
+```yaml title="docker-compose.yml"
+services:
+  bar-assistant:
+    image: barassistant/server:v5
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.barassistant.rule=Host(`bar.mydomain.com`) && PathPrefix(`/bar`)"
+      # This middleware strips the /bar prefix before forwarding to the container
+      - "traefik.http.middlewares.barassistant-stripprefix.stripprefix.prefixes=/bar"
+      - "traefik.http.routers.barassistant.middlewares=barassistant-stripprefix"
+    # ... other bar-assistant settings ...
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.15
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.meilisearch.rule=Host(`bar.mydomain.com`) && PathPrefix(`/search`)"
+      - "traefik.http.middlewares.meilisearch-stripprefix.stripprefix.prefixes=/search"
+      - "traefik.http.routers.meilisearch.middlewares=meilisearch-stripprefix"
+    # ... other meilisearch settings ...
+
+  salt-rim:
+    image: barassistant/salt-rim:v4
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.saltrim.rule=Host(`bar.mydomain.com`)"
+      # No strip prefix needed for root path
+    # ... other salt-rim settings ...
+```
+
+!!! tip
+    Don't forget to update your `.env` file with the correct URLs:
+    ```
+    API_URL=https://bar.mydomain.com/bar
+    MEILISEARCH_URL=https://bar.mydomain.com/search
+    ```
+
+### Traefik config example with subdomains
+
+When using subdomains with Traefik, you don't need to worry about path stripping since each service is at the root of its subdomain.
+
+```yaml title="docker-compose.yml"
+services:
+  bar-assistant:
+    image: barassistant/server:v5
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.barassistant-api.rule=Host(`api.example.com`)"
+    # ... other bar-assistant settings ...
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.15
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.meilisearch.rule=Host(`search.example.com`)"
+    # ... other meilisearch settings ...
+
+  salt-rim:
+    image: barassistant/salt-rim:v4
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.saltrim.rule=Host(`my-bar.example.com`)"
+    # ... other salt-rim settings ...
+```
+
+!!! tip
+    Update your `.env` file:
+    ```
+    API_URL=https://api.example.com
+    MEILISEARCH_URL=https://search.example.com
+    ```
+
+### Testing your reverse proxy configuration
+
+To verify your reverse proxy is configured correctly:
+
+1. **Test the API server directly**: Visit `https://yourdomain.com/bar` (or your configured path). You should see: "This is your Bar Assistant instance."
+
+2. **Check the API documentation**: Visit `https://yourdomain.com/bar/docs`. You should see the Swagger API documentation page.
+
+3. **Test a specific endpoint**: Visit `https://yourdomain.com/bar/api/server/version`. You should see a JSON response with version information, not a "Resource not found" error.
+
+If any of these tests fail with "Resource not found", double-check that your reverse proxy is stripping the path prefix correctly.
