@@ -13,9 +13,7 @@ Visit [setup page](setup/index.md) to view installation steps.
 
 ## Initial bar data
 
-<!-- ![Screenshot](assets/screenshots/bar-create.png){ align=left } -->
-
-When you create a new bar, you can choose to start a bar with cocktails and ingredients already included. All that initial data is managed in a separate repository and pulled when building a docker image. You can view and contribute to that data via the [Bar Assistant Public Data repository](https://github.com/bar-assistant/data). Standard recipe repository usually gets updates with new recipes, to pull new recipes you can go to: "Bars" -> "Edit bar" and click on "Synchronize data".
+When you create a new bar, you can choose to start a bar with cocktails and ingredients already included. All that initial data is managed in a separate repository and pulled when building a Docker image. You can view and contribute to that data via the [Bar Assistant Public Data repository](https://github.com/bar-assistant/data). The standard recipe repository usually gets updates with new recipes. To pull new recipes, you can go to "Bars" -> "Edit bar" and click on "Synchronize data".
 
 ## Managing ingredients
 
@@ -45,147 +43,114 @@ You can increase your available cocktail recipes in a few ways.
 
 ## Adding recipes
 
-You can create new cocktail recipes by clicking "Create cocktail" button on "Cocktails" page. From that page you can manage all data related to the recipe including ingredients, tags, images and more.
+You can create new cocktail recipes by clicking the "Create cocktail" button on the "Cocktails" page. From that page you can manage all data related to the recipe, including ingredients, tags, images, and more.
 
-You can also import recipes through various sources. If you are missing some import options you can open a [GitHub issue](https://github.com/karlomikus/bar-assistant) and describe what would you want to be added.
+You can also import recipes from various sources. If you are missing some import options, you can open a [GitHub issue](https://github.com/karlomikus/bar-assistant) and describe what you would want to be added.
 
 ### Import from website
 
-With Bar Assistant you can scrape cocktail recipes directly from the given webpage. Some websites are officially supported but Bar Assistant will try to extract recipe data from any link you give it.
+With Bar Assistant, you can scrape cocktail recipes directly from the given webpage. Some websites are officially supported, but Bar Assistant will try to extract recipe data from any link you give it.
 
-After you import recipe from the URL you will be presented with all the data that was found. Here you can double-check if everything is correct and keep it in sync with your data. Ingredients will be automatically matched by their name, if the ingredient is not found it will be created. You can also manually match ingredients.
+After you import the recipe from the URL, you will be presented with all the data that was found. Here you can double-check if everything is correct and keep it in sync with your data. Ingredients will be automatically matched by their name; if the ingredient is not found, it will be created. You can also manually match ingredients.
 
 ## Recipe collections
 
 You can create a recipe collection in a few ways.
 
-By manually creating collections via the "Collections" page. Then you can go to a single cocktail recipe and in the actions dropdown select "Add to collection". You can also create a new collection directly from dialog that shows up.
+By manually creating collections via the "Collections" page. Then you can go to a single cocktail recipe and in the actions dropdown select "Add to collection". You can also create a new collection directly from the dialog that shows up.
 
-To add multiple recipes to collection you can use "Cocktails" page to filter what cocktails you want to add and then click "Add to collection" button in top right.
+To add multiple recipes to a collection, you can use the "Cocktails" page to filter what cocktails you want to add and then click the "Add to collection" button in the top right.
 
-If you want to share your collection with all the members in the bar you can enable that on "Collections" page when you edit a specific collection. All shared collections will be shown in the filter sidebar od "Cocktails" page.
+If you want to share your collection with all the members in the bar, you can enable that on the "Collections" page when you edit a specific collection. All shared collections will be shown in the filter sidebar of the "Cocktails" page.
 
 ## Searching and filtering
 
-You can use global search that is always available when you click "Search" in site header. This search is fast and powered by Meilisearch. From here you can also filter ingredients and cocktails.
+Finding the perfect drink shouldn't be harder than drinking it. You can use global search that is always available when you click "Search" in site header. This search will look through all cocktails and ingredients in the bar.
 
-You can also be more specific with filters when you are on main resource page.
+When you're on the main Cocktails page, you can drill down into your library using these specific facets:
 
-Available cocktail filters:
+|Filter|Description|
+|-|-|
+| Bar shelf cocktails | Cocktails you can make with ingredients from the bar shelf.|
+| Locked bar cocktails | Cocktails that are not available to make because of missing ingredients in the bar shelf.|
+| Cocktails I can make | Cocktails you can make with ingredients from your personal shelf.|
+|Cocktails I can't make| Cocktails that are not available to make because of missing ingredients in your personal shelf.|
+| My favorites| Cocktails you've marked as favorites.|
+|Public cocktails| Cocktails that have a public link.|
+| Specified ingredients | This will show you cocktails that have all the selected ingredients in the recipe.|
+| Ignored ingredients | This will show you cocktails that don't have any of the selected ingredients in the recipe.|
+| Collections | This will show you cocktails that are part of the selected collections. This will also show collections from other bar members if they are shared.|
+| Recipes by user | This will show you cocktails that were added by the selected users.|
+| Main ingredient | This will show you cocktails that have the selected ingredient as the main ingredient in the recipe.|
+| Method | This will show you cocktails that use the selected preparation method.
+| Strength | This will show you cocktails that fall into the selected strength by ABV range.|
+| Tags | This will show you cocktails that have the selected custom tags.| 
+| Glass type | This will show you cocktails that are served in the selected glass type.|
+| Total ingredients | This will show you cocktails that have the selected total number of ingredients in the recipe.|
+| Missing ingredients (Bar) | This will show you cocktails that are missing the selected number of ingredients from the bar shelf.|
+| Missing ingredients (Shelf) | This will show you cocktails that are missing the selected number of ingredients from your personal shelf.|
+| Your rating | This will show you cocktails that you have rated with the selected rating.|
+| Average rating | This will show you cocktails that have the selected average rating from all bar members.|
 
-- Cocktails you can make
-- Favorites
-- Cocktails with a public link
-- Collections - including your and other bar members collections
-- Recipes added by specific users
-- Main ingredient - The ingredient that is in first place in the cocktail recipe is marked as the main ingredient
-- Cocktail preparation method
-- Cocktail strength by ABV
-- Custom tags you've added
-- Glass type
-- Total number of ingredients
-- By ratings
+When you're on the main Ingredients page, you can drill down into your library using these specific facets:
 
-Available ingredient filters:
-
-- Ingredients in your shelf
-- Ingredients on your shopping list
-- Ingredients used as main ingredient
-- Category
-- Strength
-
-These facets combined with custom sorting give you powerful filtering capabilities.
+|Filter|Description|
+|-|-|
+| Bar shelf ingredients | Ingredients that are on the bar shelf.|
+| Shelf ingredients | Ingredients that are on your personal shelf.|
+| Shopping list ingredients | Ingredients that are on your shopping list.|
+| Used as main ingredient | Ingredients that are used as main ingredient in any cocktail recipe.|
+| Complex ingredient | Ingredients that are complex ingredients (made up of other ingredients).|
+| Category | Ingredients that belong to the selected category.|
+| Strength | Ingredients that fall into the selected strength by ABV range.|
 
 ## Sharing recipes
 
 Bar Assistant allows you to share recipes in a few ways. All actions are available on a specific cocktail recipe page.
 
-- Print recipe - This shows you print-friendly page with the recipe information
-- Create public link - This will create a public link which you can share with your friends
-- Generate recipe image - Create a recipe image that you can share with your friends
-- Copy as JSON - This will copy recipe in a specific format which you can use to import it into another bar
-- Copy as YAML/XML/Markdown/JSON-LD - This will copy recipe information in selected format
+- Print recipe: This shows you a print-friendly page with the recipe information.
+- Create a public link: This will create a public link that you can share with your friends.
+- Generate recipe image: Create a recipe image that you can share with your friends.
+- Copy as JSON: This will copy the recipe in a specific format that you can use to import it into another bar.
+- Copy as YAML/XML/Markdown/JSON-LD: This will copy recipe information in the selected format.
 
 ## User roles
 
-There is a few user roles in the Bar Assistant.
+In Bar Assistant, permissions flow from the top down. Higher roles generally inherit the abilities of the roles below them.
 
-**Admin**
-
-Complete access to bar actions. Can't delete the bar.
-
-**Moderator**
-
-Can manage cocktails and ingredients. Can manage bar settings except bar members.
-
-**General**
-
-Can manage cocktails and ingredients.
-
-**Guest**
-
-Can only view, favorite and rate recipes and ingredients. Can also create collections.
-
-**Bar owner**
-
-User that created the bar.
-
-**Bar member**
-
-User that has any membership in the bar.
+| Role | Access Level | Primary Purpose |
+| --- | --- | --- |
+| **Bar Owner** | **Absolute** | Creator of the bar; ultimate authority. |
+| **Admin** | **High** | Full bar management (except deletion). The "Superuser." Admins can perform almost any action within a bar, from managing members to editing all content. |
+| **Moderator** | **Medium** | Content management and basic bar settings. This is the standard active role for users who want to add to the bar's library. |
+| **General** | **Standard** | Active contributors (recipes and ingredients). |
+| **Guest** | **Low** | Read-only access with personal interactions. The "Consumer." Ideal for users who only need to browse the bar. |
 
 !!! warning
 
     Keep in mind that the user that created the bar can delete it at any point (independent of the role he has). Deleting the bar also deletes all the recipes and ingredients that members added.
 
-### Bar
+### Access Control Matrix
 
-| Action | Allowed roles |
-| --- | --- |
-| Create | Anyone registered |
-| View | Bar members |
-| Edit | Bar owner, admin |
-| Delete | Bar owner |
-| Remove members | Bar owner, admin |
-| Active/Deactivate | Bar owner |
-| Create exports | Bar owner |
-| Manage bar shelf | Bar owner, admin, moderator |
+**Legend:** ✅ Full Access | 👤 Self/Author Only | 👥 Members Only | 🌐 Everyone (Registered)
 
-### Methods, Tags, Utensils, Ingredient categories, Glass types, Price categories
-
-| Action | Allowed roles |
-| --- | --- |
-| Create | Admin, moderator |
-| View | Bar members |
-| Edit | Admin, moderator |
-| Delete | Admin, moderator |
-
-### Cocktails
-
-| Action | Allowed roles |
-| --- | --- |
-| Create | Admin, moderator, general |
-| View | Bar members |
-| Edit | Cocktail author, admin, moderator |
-| Delete | Cocktail author, admin, moderator |
-| Create public link | Cocktail author, admin, moderator |
-| Rate | Bar members |
-| Add notes | Bar members |
-
-### Ingredients
-
-| Action | Allowed roles |
-| --- | --- |
-| Create | Admin, moderator, general |
-| View | Bar members |
-| Edit | Cocktail author, admin, moderator |
-| Delete | Cocktail author, admin, moderator |
-
-### Users
-
-| Action | Allowed roles |
-| --- | --- |
-| Create | Admin, moderator |
-| View | Admin, moderator |
-| Edit | Admin, moderator |
-| Delete | User can delete his own account |
+| Entity / Action | Admin | Moderator | Owner | Author | Member | Registered |
+| --- | --- | --- | --- | --- | --- | --- |
+| **Bar** |  |  |  |  |  |  |
+| Create |  |  |  |  |  | ✅ |
+| View | ✅ | ✅ | ✅ |  | ✅ |  |
+| Edit / Remove Members | ✅ |  | ✅ |  |  |  |
+| Delete / Deactivate / Export |  |  | ✅ |  |  |  |
+| Manage Shelf | ✅ | ✅ | ✅ |  |  |  |
+| **Cocktails & Ingredients** |  |  |  |  |  |  |
+| Create | ✅ | ✅ |  |  |  | ✅ |
+| View | ✅ | ✅ | ✅ |  | ✅ |  |
+| Edit / Delete | ✅ | ✅ |  | 👤 |  |  |
+| Create Public Link | ✅ | ✅ |  | 👤 |  |  |
+| Rate / Add Notes |  |  |  |  | ✅ |  |
+| **System Data** (Methods, Tags, etc.) |  |  |  |  |  |  |
+| Create / Edit / Delete | ✅ | ✅ |  |  |  |  |
+| View | ✅ | ✅ | ✅ |  | ✅ |  |
+| **Users** |  |  |  |  |  |  |
+| Create / View / Edit | ✅ | ✅ |  |  |  |  |
+| Delete Account |  |  |  |  |  | 👤 |

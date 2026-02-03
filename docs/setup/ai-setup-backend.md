@@ -39,7 +39,7 @@ OPENAI_URL=
 OPENAI_ORGANIZATION=
 ```
 
-## Anthropic
+### Anthropic
 ```sh
 GEN_AI_PROVIDER=anthropic
 GEN_AI_MODEL=claude-2
@@ -50,7 +50,7 @@ ANTHROPIC_DEFAULT_THINKING_BUDGET=
 ANTHROPIC_BETA=
 ```
 
-## Anthropic
+### Anthropic
 ```sh
 GEN_AI_PROVIDER=deepseek
 GEN_AI_MODEL=deepseek-chat
@@ -59,7 +59,7 @@ DEEPSEEK_API_KEY=
 DEEPSEEK_URL=
 ```
 
-## Gemini
+### Gemini
 ```sh
 GEN_AI_PROVIDER=gemini
 GEN_AI_MODEL=gemini-2.0-flash
@@ -68,7 +68,7 @@ GEMINI_API_KEY=
 GEMINI_URL=
 ```
 
-## Mistral
+### Mistral
 ```sh
 GEN_AI_PROVIDER=mistral
 GEN_AI_MODEL=magistral-medium-latest
@@ -77,7 +77,7 @@ MISTRAL_API_KEY=
 MISTRAL_URL=
 ```
 
-## xAI
+### xAI
 ```sh
 GEN_AI_PROVIDER=xai
 GEN_AI_MODEL=grok-4
@@ -86,7 +86,7 @@ XAI_API_KEY=
 XAI_URL=
 ```
 
-## Groq
+### Groq
 ```sh
 GEN_AI_PROVIDER=groq
 GEN_AI_MODEL=llama-3.3-70b-versatile
