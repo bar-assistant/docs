@@ -11,6 +11,7 @@ Bar Assistant currently supports the following SSO providers:
 - Authentik
 - Keycloak
 - PocketId
+- Kanidm
 
 More SSO providers can be implmented by opening a [GitHub issue](https://github.com/karlomikus/bar-assistant/issues).
 

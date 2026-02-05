@@ -15,6 +15,10 @@ Visit [setup page](setup/index.md) to view installation steps.
 
 When you create a new bar, you can choose to start a bar with cocktails and ingredients already included. All that initial data is managed in a separate repository and pulled when building a Docker image. You can view and contribute to that data via the [Bar Assistant Public Data repository](https://github.com/bar-assistant/data). The standard recipe repository usually gets updates with new recipes. To pull new recipes, you can go to "Bars" -> "Edit bar" and click on "Synchronize data".
 
+## Joining a bar
+
+To join an existing bar, you need to ask the bar owner add you as a member, or he can share an invite code with you that you can use to join the bar yourself.
+
 ## Managing ingredients
 
 You can manage all ingredients via the "Ingredients" page. Any ingredient that you create can be added as a child ingredient to another ingredient. This way you can create a hierarchy of ingredients that can be used for matching ingredients in cocktail recipes. So for example if you have "Lemon Juice" as a child ingredient of "Citrus Juice", any cocktail that requires "Citrus Juice" will match "Lemon Juice" as well.

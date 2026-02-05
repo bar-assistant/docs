@@ -23,6 +23,7 @@ This usually means that the client can't reach the API server. There could be a 
 If you see `{"type":"api_error","message":"Resource not found."}` when accessing paths like `/bar/docs` or `/bar/api/server/version`, this usually means your reverse proxy is forwarding the full path including the prefix instead of stripping it.
 
 The application expects requests without the path prefix. For example:
+
 - ❌ Incorrect: Request to `/bar/api/server/version` forwarded as `/bar/api/server/version`
 - ✅ Correct: Request to `/bar/api/server/version` forwarded as `/api/server/version`
 
