@@ -17,7 +17,7 @@ When you create a new bar, you can choose to start a bar with cocktails and ingr
 
 ## Joining a bar
 
-To join an existing bar, you need to ask the bar owner add you as a member, or he can share an invite code with you that you can use to join the bar yourself.
+To join an existing bar, you need to ask the bar owner add you as a member, or he can share an invite code with you that you can use to join the bar yourself. You can find invite code and invite link in your list of bars, it can be toggled on and off by clicking the "Show invite code" button on the specific bar.
 
 ## Managing ingredients
 
