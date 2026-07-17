@@ -1,11 +1,23 @@
 # Installation (Docker)
 
-This is recommended way of installation. This will get you running with the following services on your localhost:
+This guide walks you through deploying Bar Assistant to your server via Docker containers. This will get you running with the following services on your localhost:
 
 - Bar Assistant API server
 - Salt Rim web client
 - Meilisearch service for searching and filtering
 - Optional Redis service for caching and sessions
+
+## What you need before you start
+
+A server running Docker and Docker Compose.
+
+Docker Engine 24 or later and Compose v2 are the only hard requirements. Bar Assistant runs inside containers, so you do not need PHP, nginx, or SQLite installed on the host. The images pull those in for you.
+
+### About image tags
+
+Bar Assistant follows major-version tags so you stay on the latest stable release.
+
+Using `barassistant/server:v5` always pulls the most recent v5.x.x release. This is the recommended tag for production. More conservative operators can pin to a minor version like `v5.4`. Do not use the `develop` tag outside of testing. It tracks the development branch and may contain unfinished work.
 
 ## Docker Compose
 
@@ -91,6 +103,10 @@ services:
 !!! warning
 
     If you are using rootless docker and want to use bind mounts, you will need to manually set the correct user permissions on your host folder. In most cases this will be `100032:100032` but it can vary depending on your docker setup. Learn more about this [here](https://docs.docker.com/engine/security/userns-remap/).
+
+**Why the storage volume matters**: The SQLite database and all uploaded images live inside this single directory.
+
+Mounting `/var/www/cocktails/storage/bar-assistant` to a host directory is the difference between data that survives a container rebuild and data that vanishes. Treat this directory the way you would treat a database volume in any other stack: back it up regularly, and include it in your disaster recovery plan.
 
 ### Step 2: Run the stack
 
