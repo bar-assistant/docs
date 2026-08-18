@@ -47,7 +47,7 @@ volumes:
 
 services:
   meilisearch:
-    image: getmeili/meilisearch:v1.15 # Never use latest tag
+    image: getmeili/meilisearch:v1.50 # Never use latest tag
     environment:
       - MEILI_NO_ANALYTICS=true
       - MEILI_MASTER_KEY=$MEILI_MASTER_KEY
@@ -66,7 +66,7 @@ services:
     restart: unless-stopped
 
   bar-assistant:
-    image: barassistant/server:v5
+    image: barassistant/server:v6
     depends_on:
       - meilisearch
       - redis # Remove if not using redis
@@ -85,7 +85,7 @@ services:
       - bar_data:/var/www/cocktails/storage/bar-assistant
 
   salt-rim:
-    image: barassistant/salt-rim:v4
+    image: barassistant/salt-rim:v5
     depends_on:
       - bar-assistant
     environment:
@@ -229,7 +229,7 @@ Here's an example of how to configure Traefik using Docker labels to expose the 
 ```yaml title="docker-compose.yml"
 services:
   bar-assistant:
-    image: barassistant/server:v5
+    image: barassistant/server:v6
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.barassistant.rule=Host(`bar.mydomain.com`) && PathPrefix(`/bar`)"
@@ -239,7 +239,7 @@ services:
     # ... other bar-assistant settings ...
 
   meilisearch:
-    image: getmeili/meilisearch:v1.15
+    image: getmeili/meilisearch:v1.50
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.meilisearch.rule=Host(`bar.mydomain.com`) && PathPrefix(`/search`)"
@@ -270,14 +270,14 @@ When using subdomains with Traefik, you don't need to worry about path stripping
 ```yaml title="docker-compose.yml"
 services:
   bar-assistant:
-    image: barassistant/server:v5
+    image: barassistant/server:v6
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.barassistant-api.rule=Host(`api.example.com`)"
     # ... other bar-assistant settings ...
 
   meilisearch:
-    image: getmeili/meilisearch:v1.15
+    image: getmeili/meilisearch:v1.50
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.meilisearch.rule=Host(`search.example.com`)"

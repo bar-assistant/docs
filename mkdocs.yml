@@ -48,6 +48,7 @@ nav:
       - 'setup/sso.md'
       - 'setup/ai-setup-backend.md'
     - "Migration":
+      - 'setup/migrate-to-60.md'
       - 'setup/migrate-to-50.md'
       - 'setup/migrate-to-40.md'
       - 'setup/migrate-to-30.md'
