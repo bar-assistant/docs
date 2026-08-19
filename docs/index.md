@@ -80,11 +80,13 @@ When you're on the main Cocktails page, you can drill down into your library usi
 | Cocktails I can make | Cocktails you can make with ingredients from your personal shelf.|
 |Cocktails I can't make| Cocktails that are not available to make because of missing ingredients in your personal shelf.|
 | My favorites| Cocktails you've marked as favorites.|
+| Favorited by user | This will show you cocktails that are favorited by the selected users.|
 |Public cocktails| Cocktails that have a public link.|
 | Specified ingredients | This will show you cocktails that have all the selected ingredients in the recipe.|
 | Ignored ingredients | This will show you cocktails that don't have any of the selected ingredients in the recipe.|
 | Collections | This will show you cocktails that are part of the selected collections. This will also show collections from other bar members if they are shared.|
 | Recipes by user | This will show you cocktails that were added by the selected users.|
+| Author | Shows cocktails whose recipe author matches the selected names.|
 | Main ingredient | This will show you cocktails that have the selected ingredient as the main ingredient in the recipe.|
 | Method | This will show you cocktails that use the selected preparation method.
 | Strength | This will show you cocktails that fall into the selected strength by ABV range.|

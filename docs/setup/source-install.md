@@ -5,14 +5,18 @@ Please note, you should be familiar with linux server setup.
 Bar Assistant is made with [Laravel](https://laravel.com), you can check out [default laravel requirements here](https://laravel.com/docs/deployment). A few extra prerequisites are:
 
 - You have `git` installed
-- You have installed PHP >= 8.3 with the following extensions:
+- You have installed PHP >= 8.4 with the following extensions:
     - ffi
     - opcache
     - redis
     - zip
     - sqlite
     - bcmath
-    - int
+    - intl
+- You have the `libvips42` system package installed (required for image processing via the `jcupitt/vips` FFI bindings). Without it, image uploads will fail silently or crash.
+- Your `php.ini` has the following settings (required by the libvips FFI bindings):
+    - `ffi.enable=true`
+    - `zend.max_allowed_stack_size=-1`
 - You have [Composer](https://getcomposer.org) installed
 - You have `sqlite3` installed
 - You have meilisearch running somewhere.
@@ -30,11 +34,22 @@ Update the required variables:
 ``` env title=".env"
 # Your application instance URL
 APP_URL=
+
+# Database
+DB_CONNECTION=sqlite
+DB_FOREIGN_KEYS=true
+
+# Redis
 REDIS_HOST=127.0.0.1
 REDIS_PASSWORD=null
 REDIS_PORT=6379
 CACHE_DRIVER=redis
 SESSION_DRIVER=redis
+
+# Search
+SCOUT_DRIVER=meilisearch
+MEILISEARCH_HOST=
+MEILISEARCH_KEY=
 ```
 
 ### 2. Install dependencies
@@ -43,7 +58,7 @@ Use [Composer](https://getcomposer.org) to install the required dependencies.
 
 ``` bash
 # Install dependecies
-$ composer install
+$ composer install --optimize-autoloader --no-dev
 ```
 
 ### 3. Setup the rest of the application
@@ -51,6 +66,13 @@ $ composer install
 Now you should be able to use `artisan` commands to setup the rest of the application.
 
 ``` bash
+# Create the storage directories required by the application
+mkdir -p storage/bar-assistant/uploads/cocktails
+mkdir -p storage/bar-assistant/uploads/ingredients
+mkdir -p storage/bar-assistant/uploads/temp
+mkdir -p storage/bar-assistant/backups
+touch storage/bar-assistant/database.ba3.sqlite
+
 # Generate a key
 php artisan key:generate
 
@@ -77,6 +99,15 @@ php artisan sanctum:prune-expired --hours=24
 
 # Sync base recipes
 git clone --depth 1 --branch v5 https://github.com/bar-assistant/data.git resources/data
+
+# Verify the installation
+php artisan about
+```
+
+If you want to run background jobs (bar setup, recipe imports, search indexing), start a queue worker. The application uses [Laravel Horizon](https://laravel.com/docs/horizon):
+
+``` bash
+php artisan horizon
 ```
 
 You can now configure your webserver to serve the PHP files from the `public` folder. An [example config with ngnix is available here](https://laravel.com/docs/deployment#nginx).
@@ -85,12 +116,12 @@ You can now configure your webserver to serve the PHP files from the `public` fo
 
 After cloning the Salt Rim repository do the following.
 
-1. Install dependencies with `npm install`
+1. Install dependencies with `bun install` (requires Bun, or use `npm install` — requires Node `^22.18.0 || >=24.12.0`)
 2. Add a config file to public folder: `public/config.js`
 ```js
 window.srConfig = {}
 window.srConfig.API_URL = "http://my-bar.com"
 window.srConfig.MEILISEARCH_URL = "http://my-milisearch.com"
 ```
-3. Build for production by running `npm run build`
+3. Build for production by running `bun run build` (or `npm run build`)
 4. Now you have a `dist/` folder. You can configure your webserver to serve static files from this folder.
