@@ -104,9 +104,15 @@ services:
 
     If you are using rootless docker and want to use bind mounts, you will need to manually set the correct user permissions on your host folder. In most cases this will be `100032:100032` but it can vary depending on your docker setup. Learn more about this [here](https://docs.docker.com/engine/security/userns-remap/).
 
-**Why the storage volume matters**: The SQLite database and all uploaded images live inside this single directory.
+**Why the storage volume matters**: The SQLite database, uploaded images, and published starter-media catalog live inside this single directory.
 
 Mounting `/var/www/cocktails/storage/bar-assistant` to a host directory is the difference between data that survives a container rebuild and data that vanishes. Treat this directory the way you would treat a database volume in any other stack: back it up regularly, and include it in your disaster recovery plan.
+
+### Starter-media catalog
+
+Each server image includes a versioned starter-data release. At API container startup, Bar Assistant publishes and verifies that release's media in `storage/bar-assistant/catalog` before the application is ready. The operation is idempotent for an unchanged release, while a release with changed media must use a new version.
+
+Keep the `bar_data` volume when updating the server image. It retains catalog releases used by existing bars, so their starter images remain available after newer starter data is published. Do not mount or manage `resources/data` separately: it is image-provided source data, not persistent application data.
 
 ### Step 2: Run the stack
 
@@ -135,6 +141,8 @@ $ docker compose pull
 # Run the stack
 $ docker compose up -d
 ```
+
+On the first startup after an update, the API container publishes the new image's starter-media release to the existing `bar_data` volume. Check `docker compose logs bar-assistant` for a successful starter-media publication before starting separate queue workers that provision or synchronize bars.
 
 ## Reverse proxy configuration
 
