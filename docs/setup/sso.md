@@ -12,6 +12,7 @@ Bar Assistant currently supports the following SSO providers:
 - Keycloak
 - PocketId
 - Kanidm
+- Other providers via generic OAuth2
 
 More SSO providers can be implmented by opening a [GitHub issue](https://github.com/karlomikus/bar-assistant/issues).
 
@@ -59,6 +60,12 @@ POCKETID_BASE_URL=
 POCKETID_CLIENT_ID=
 POCKETID_CLIENT_SECRET=
 POCKETID_REDIRECT_URI=
+
+# To enable a generic OIDC provider set the following:
+OIDC_BASE_URL=
+OIDC_CLIENT_ID=
+OIDC_CLIENT_SECRET=
+OIDC_REDIRECT_URI=
 ```
 
 Here's an example of how to enable Authentik SSO:
