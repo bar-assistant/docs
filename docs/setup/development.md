@@ -18,6 +18,22 @@ $ docker compose exec app php artisan migrate
 $ git clone https://github.com/bar-assistant/data.git resources/data
 ```
 
+## Starter media catalog
+
+Starter data lives in `resources/data`. Its JSON files describe cocktails, ingredients, glasses, and their image paths. The media itself is published separately to the local catalog disk at `storage/bar-assistant/catalog`, so each bar can reference the same starter image instead of storing a duplicate upload.
+
+The source-data disk contains `data/starter-media-release.json`. Its `version` identifies an immutable starter-media release. Before provisioning a bar or running starter-data synchronization, publish the checked-out release:
+
+```bash
+$ docker compose exec app php artisan starter-media:publish
+```
+
+The command discovers every image referenced by starter data and streams it to `catalog/<version>/...`. Once every object is present and its checksum has been verified, it writes `catalog/<version>/completion-manifest.json`. This completion manifest prevents provisioning from creating image attachments for a partially uploaded catalog release.
+
+Re-running the command for unchanged source data is safe. If an image changes, update the release version in `starter-media-release.json` before publishing: an existing completed version cannot be overwritten. Old catalog releases remain in storage because existing bars may still reference their images.
+
+For local development, run the publish command after cloning or updating `resources/data`, and before creating a bar with starter data or running starter-data synchronization. The development Docker Compose setup bind-mounts the repository, so the catalog persists in your working tree under `storage/bar-assistant/catalog` until you remove it.
+
 ## Code quality
 
 The following commands should all pass before you push the changes:
