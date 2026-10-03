@@ -100,11 +100,16 @@ php artisan sanctum:prune-expired --hours=24
 # Sync base recipes
 git clone --depth 1 --branch v5 https://github.com/bar-assistant/data.git resources/data
 
+# Publish the immutable starter-media release before provisioning bars
+php artisan starter-media:publish
+
 # Verify the installation
 php artisan about
 ```
 
-If you want to run background jobs (bar setup, recipe imports, search indexing), start a queue worker. The application uses [Laravel Horizon](https://laravel.com/docs/horizon):
+The starter-media command stores release-versioned images in `storage/bar-assistant/catalog`. Keep this directory with the database and uploads during upgrades and backups; it retains the media used by existing bars. Run the publish command after updating `resources/data` and before starting workers that provision or synchronize bars. It is idempotent for an unchanged release and rejects changed media published under the same release version.
+
+If you want to run background jobs (bar setup, recipe imports, search indexing), start a queue worker after publishing starter media. The application uses [Laravel Horizon](https://laravel.com/docs/horizon):
 
 ``` bash
 php artisan horizon
