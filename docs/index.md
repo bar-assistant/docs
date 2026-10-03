@@ -87,6 +87,7 @@ When you're on the main Cocktails page, you can drill down into your library usi
 | Collections | This will show you cocktails that are part of the selected collections. This will also show collections from other bar members if they are shared.|
 | Recipes by user | This will show you cocktails that were added by the selected users.|
 | Author | Shows cocktails whose recipe author matches the selected names.|
+| Origin bar | Shows cocktails whose origin bar matches the selected names.|
 | Main ingredient | This will show you cocktails that have the selected ingredient as the main ingredient in the recipe.|
 | Method | This will show you cocktails that use the selected preparation method.
 | Strength | This will show you cocktails that fall into the selected strength by ABV range.|
