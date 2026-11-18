@@ -7,6 +7,7 @@ Enabling AI integration unlocks the following features:
 - Automatic tag suggestions for cocktail recipes. This feature is available when updating an existing recipe.
 - Automatic ingredient details autocomplete based on the ingredient name. This feature is available when you enter at least the first 3 characters of the name.
 - Extracting a structured cocktail recipe from unstructured text input.
+- Identifying bottles on a photo of your bar shelf and marking the matched ingredients as in stock.
 - Generating cocktail images using an image-capable AI provider.
 
 AI features are enabled instance-wide and are available to all accounts on that instance. Provider credentials stay on the server and are never exposed to clients.
@@ -55,6 +56,8 @@ Image generation is only available when both `GEN_AI_PROVIDER` and `GEN_AI_IMAGE
 | Amazon Bedrock | `bedrock` | `AWS_BEDROCK_REGION` and either `AWS_BEARER_TOKEN_BEDROCK` or `AWS_ACCESS_KEY_ID` + `AWS_SECRET_ACCESS_KEY` | Yes |
 
 The selected model needs to support structured output (JSON schema), since recipe, tag, and ingredient generation rely on structured responses. If a model or provider does not support structured output, those endpoints will return an error.
+
+Shelf photo identification uses the same `GEN_AI_PROVIDER` and `GEN_AI_MODEL` configuration as other text features — there is no separate vision configuration. The caveat is that the configured model must also support vision (image input). Models that only process text will make the shelf photo endpoint return an error.
 
 ### Ollama
 

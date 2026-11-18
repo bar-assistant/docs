@@ -82,8 +82,8 @@ When you're on the main Cocktails page, you can drill down into your library usi
 | My favorites| Cocktails you've marked as favorites.|
 | Favorited by user | This will show you cocktails that are favorited by the selected users.|
 |Public cocktails| Cocktails that have a public link.|
-| Specified ingredients | This will show you cocktails that have all the selected ingredients in the recipe.|
-| Ignored ingredients | This will show you cocktails that don't have any of the selected ingredients in the recipe.|
+| Specified ingredients | This will show you cocktails that have all the selected ingredients in the recipe. A selected ingredient also matches its child ingredients, and an ingredient slot in the recipe also matches through its declared substitutes.|
+| Ignored ingredients | This will show you cocktails that don't have any of the selected ingredients in the recipe. A selected ingredient also excludes cocktails that use its child ingredients, and cocktail recipe slots are also matched through their declared substitutes.|
 | Collections | This will show you cocktails that are part of the selected collections. This will also show collections from other bar members if they are shared.|
 | Recipes by user | This will show you cocktails that were added by the selected users.|
 | Author | Shows cocktails whose recipe author matches the selected names.|

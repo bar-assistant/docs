@@ -59,6 +59,16 @@ You can disable `/register` endpoint with environment variable.
 ALLOW_REGISTRATION=false
 ```
 
+## How do I change how long login tokens stay valid?
+
+Tokens issued by the login endpoint expire after 14 days by default. You can change this with an environment variable on the server:
+
+```bash
+AUTH_TOKEN_EXPIRATION_DAYS=90
+```
+
+The value is expressed in whole days and affects only newly issued tokens (both password and SSO logins) - already issued tokens keep their original expiry. Setting the value to `0` or a negative number issues login tokens that never expire.
+
 ## How do I backup my data?
 
 To create a full backup of your data, you can use the CLI commands.

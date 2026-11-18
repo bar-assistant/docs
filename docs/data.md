@@ -5,87 +5,100 @@ hide:
 
 # Data management
 
-Being in control of your data is one of the most important parts of Bar Assistant. That's why there are several ways to export your data into human and machine readable formats.
+## Choose an export format
 
-## Export data types
+All exports are ZIP archives. Recipe-format exports group each cocktail's recipe and available images under `cocktails/<slug>_<id>/`. A datapack also includes supporting bar data for import into another Bar Assistant instance.
 
-Here's a quick summary of all data export types. All types have recipes grouped into folders, with cocktail name (slug) being the folder name. Images are included in the root of the recipe folder.
-
-| Type | Description | CLI/API type |
+| Format | Contents | `type` value |
 | --- | --- | --- |
-| Datapack | Exports bar data(1) in JSON format, which you can use to import bar data into another Bar Assistant instance | `datapack` |
-| JSON | Exports all recipes, with recipe being a [valid JSON schema](https://barassistant.app/cocktail-02.schema.json) | `json` |
-| Markdown | Exports all recipes, with recipe in Markdown format | `markdown` |
-| XML | Exports all recipes, with recipe in XML format | `xml` |
-| JSON-LD | Exports all recipes, with recipe in [Schema.org Recipe type](https://schema.org/Recipe) | `json-ld` |
-| YAML | Same structure as JSON, but in YAML format | `yaml` |
+| Datapack | Bar data and images in a format you can import into another instance | `datapack` |
+| JSON | Cocktail recipes that follow the [Cocktail JSON schema](https://barassistant.app/cocktail-02.schema.json) | `schema` |
+| Markdown | Cocktail recipes in Markdown | `md` |
+| XML | Cocktail recipes in XML | `xml` |
+| JSON-LD | Cocktail recipes in the [Schema.org Recipe format](https://schema.org/Recipe) | `json-ld` |
+| YAML | Cocktail recipes in YAML, with the same fields as the JSON format | `yaml` |
 
-(1) Bar data includes cocktails, ingredients, methods, tags, utensils, glass types, ingredient categories, and price categories.
+Use `--units` in the CLI or `units` in the API to convert ingredient amounts when conversion is supported. Use `none` to keep the original units. Supported values are `none`, `ml`, `cl`, and `oz`.
 
-You can also force conversion of cocktail ingredients to a specific unit (if applicable). Available arguments for units is: `none`, `ml`, `cl`, `oz`.
+## Export data
 
-## Exporting data
+For the Docker commands below, run them from the `bar-assistant` project directory.
 
-### Via CLI (Server owners)
-You can export all cocktail recipes from your bar by using the CLI. Run `php artisan bar:export-recipes --help` to see all available options.
+### From the CLI
 
-Here's an example using default docker setup:
+Run the export command with a bar ID. Replace `123` with your bar's ID.
 
-- If you know ID of a bar you want to export recipes from, you can provide it as an argument to the command.
-
-``` bash
-$ docker compose exec bar-assistant php artisan bar:export-recipes {barId}
+```bash
+docker compose exec bar-assistant php artisan bar:export-recipes 123
 ```
 
-Otherwise, you can run the command without `{barId}` argument, and you will be able to search for a bar to export recipes from.
+The command defaults to the `datapack` format. Pass `--type` to choose another format and `--units` to convert supported ingredient amounts.
 
-- You will see a succseful message with the path to the exported file.
+```bash
+docker compose exec bar-assistant php artisan bar:export-recipes 123 --type=md --units=ml
+```
 
-### Via API
+Omit the bar ID to search for a bar interactively. Run `docker compose exec bar-assistant php artisan bar:export-recipes --help` to see all options. The command prints the exported file path. Exports are stored under `storage/bar-assistant/exports` in the server container.
 
-You can use CURL or any other HTTP client to export data.
+### From the API
 
-``` bash
+Send a `POST` request to `/api/exports` with a bearer token. Replace the server URL, token, and bar ID with your values.
+
+```bash
 curl --request POST \
-  --url http://{your-url}/api/exports \
+  --url 'https://your-server.example/api/exports' \
   --header 'Accept: application/json' \
-  --header 'Authorization: Bearer {your-token}' \
+  --header 'Authorization: Bearer YOUR_TOKEN' \
   --header 'Content-Type: application/json' \
-  --data '{
-  "type": "datapack",
-  "bar_id": {your-bar-id}
-}'
+  --data '{"type":"datapack","bar_id":123}'
 ```
 
-### Via Web UI
+The API returns `202 Accepted` while it creates the archive. Check `GET /api/exports` for the export's `is_done` status. When the export is complete, call `POST /api/exports/{id}/download` to get a download URL.
 
-If you are using Salt Rim, you can use the Exports page in the settings.
+### From Salt Rim
 
-## Importing data
+Open the **Exports** page in Salt Rim settings.
 
-### Import from datapack .zip (Server)
+## Import a datapack
 
-If you previously exported recipes with `php artisan bar:export-recipes {barId}` command, you can use `php artisan bar:import-recipes {path}` command to import those recipes. You will have to provide either an existing bar id or you will have the option to create a new one.
+The CLI import command accepts Bar Assistant datapack ZIP files. It does not import recipe-only exports such as JSON or Markdown.
 
-You can also import any .zip file you put in backups folder. Here's an example with docker compose:
+Place the ZIP file in `storage/bar-assistant/backups` on the server. In the default Docker setup, this directory is `/var/www/cocktails/storage/bar-assistant/backups` inside the container.
 
-1. Move .zip file with recipes into backups folder. This folder should be available to you if you mounted it as volume, inside container its located at `/var/www/cocktails/storage/bar-assistant/backups`.
-2. Run the following command with .zip path relative to mounted storage folder: `docker compose exec app php artisan bar:import-recipes backups/my-recipes.zip`
-3. Follow on screen instructions
+Run the command with a file path relative to `storage/bar-assistant`. For example:
 
-## Deleting users (Server)
-
-When a user deletes his account, to keep data integrity, all his account data gets anonymized. If you want to completely delete a user you can use the following command: `php artisan bar:delete-user {email}`. This will delete user and all his data, including cocktails, bars and ingredients he created.
-
-## Full backup via CLI
-
-If you want to backup all your data to a .zip file, you can use the following command:
-``` bash
-$ docker compose exec bar-assistant php artisan bar:full-backup
+```bash
+docker compose exec bar-assistant php artisan bar:import-recipes backups/my-recipes.zip
 ```
 
-This will create a .zip file with all your data and will be located at `storage/bar-assistant/backups` folder.
+Follow the prompts to choose an existing bar or create a new bar. If you create a bar, enter the owner's user ID. Confirm the import when prompted.
 
-## Meilisearch data backup
+## Create a full backup
 
-There is currently no point in backing up the Meilisearch data unless you are using custom API keys. When you restart Bar Assistant container the data gets automatically synced with Meilisearch.
+Run this command from the `bar-assistant` project directory:
+
+```bash
+docker compose exec bar-assistant php artisan bar:full-backup
+```
+
+The command prints the backup path. By default, it stores the ZIP archive in `storage/bar-assistant/backups`. The archive contains the SQLite database and uploaded files. Store your environment and deployment configuration separately. The archive does not include Meilisearch indexes.
+
+## Rebuild Meilisearch indexes
+
+Meilisearch indexes are derived from cocktail and ingredient data in the database. After restoring a backup, rebuild the indexes with:
+
+```bash
+docker compose exec bar-assistant php artisan bar:refresh-search --clear
+```
+
+This command dispatches a queued job. If your queue uses a worker, keep the worker running until the job finishes. Back up any custom Meilisearch API keys separately.
+
+## Delete a user
+
+Deleting an account in Salt Rim anonymizes the account instead of removing its records. To permanently delete a user and the bars, cocktails, ingredients, and images they created, run this command from the `bar-assistant` project directory:
+
+```bash
+docker compose exec bar-assistant php artisan bar:delete-user user@example.com
+```
+
+The command displays the user details and bar counts, then asks you to confirm. This operation is permanent. Create a full backup first.
